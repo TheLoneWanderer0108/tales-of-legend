@@ -59,8 +59,8 @@ sections 3-5.
 
 **Tasks**
 
-- [ ] Create the directory skeleton: `src/`, `assets/`, `sandbox/`, `build/`
-- [ ] Write `CMakeLists.txt` **by typing it, not pasting it**, and explain each line to
+- [x] Create the directory skeleton: `src/`, `assets/`, `sandbox/`, `build/`
+- [x] Write `CMakeLists.txt` **by typing it, not pasting it**, and explain each line to
       yourself out loud:
 
 ```cmake
@@ -85,13 +85,13 @@ target_link_libraries(game PRIVATE raylib)
 target_compile_options(game PRIVATE -Wall -Wextra)
 ```
 
-- [ ] Write a `src/main.cpp` that only prints text - **no raylib calls yet**
-- [ ] Configure and build: `cmake -S . -B build && cmake --build build -j`
-- [ ] The first build downloads and compiles raylib and takes a few minutes. Watch the
+- [x] Write a `src/main.cpp` that only prints text - **no raylib calls yet**
+- [x] Configure and build: `cmake -S . -B build && cmake --build build -j`
+- [x] The first build downloads and compiles raylib and takes a few minutes. Watch the
       output scroll. Subsequent builds are seconds
-- [ ] Run `./build/game`
-- [ ] Add a `Debug` and a `Release` build directory. Compare the binary sizes
-- [ ] Verify `build/compile_commands.json` exists (your editor uses it for autocomplete
+- [x] Run `./build/game`
+- [x] Add a `Debug` and a `Release` build directory. Compare the binary sizes
+- [x] Verify `build/compile_commands.json` exists (your editor uses it for autocomplete
       and error squiggles)
 
 **Deliverable:** `cmake --build build -j && ./build/game` prints your title.
