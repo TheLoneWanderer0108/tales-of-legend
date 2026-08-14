@@ -25,3 +25,7 @@ Learned: always return something in c++, ensure to specify flags with -, linking
 ### Day 2 - 8/12/2026
 Broke: Broke my cmake file because of syntax issues
 Learned: The importance of cmake, debug and release, how cmake compiles files and uses timestamp to avoid compiling unchanged files. to answer the question -B tells cmake where he generates a bucnh of files, most importantly the binary of the game.
+
+### Day 3 - 8/13/2026
+Broke: I made a buggy app to utilize debugging tools and see the errors
+Learned: How to use debug tools, how to find mistakes related to memory problems, how to add it to cmake and when to use each one. To answer the question, using the sanitizefound it fasterbuts more costly comapred to gdb which is more manual, in terms of my workflow i will have 2 builds, one for debugging and another the actual release ready game.

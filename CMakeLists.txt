@@ -18,3 +18,13 @@ FetchContent_MakeAvailable(raylib)
 add_executable(game src/main.cpp)
 target_link_libraries(game PRIVATE raylib)
 target_compile_options(game PRIVATE -Wall -Wextra)
+
+option(SANITIZE "Build with ASan and UBSan" OFF)
+if(SANITIZE)
+    target_compile_options(game PRIVATE
+        -fsanitize=address,undefined
+        -fno-omit-frame-pointer
+    )
+    target_link_options(game PRIVATE
+        -fsanitize=address,undefined)
+endif()

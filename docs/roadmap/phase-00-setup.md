@@ -117,23 +117,23 @@ AddressSanitizer.
 
 **Tasks**
 
-- [ ] Write a `.gitignore` covering `build/`, `.cache/`, `compile_commands.json`,
+- [x] Write a `.gitignore` covering `build/`, `.cache/`, `compile_commands.json`,
       editor directories, and `*.o`
-- [ ] Make your first commit: `git add -A && git commit -m "day 1-3: project skeleton"`
-- [ ] Practise the loop five times: change something, `git diff`, `git add -p`,
+- [x] Make your first commit: `git add -A && git commit -m "day 1-3: project skeleton"`
+- [x] Practise the loop five times: change something, `git diff`, `git add -p`,
       `git commit`, `git log --oneline`
-- [ ] Practise recovery: make a mess in a file, then `git restore <file>`. Then commit a
+- [x] Practise recovery: make a mess in a file, then `git restore <file>`. Then commit a
       mistake and undo it with `git revert`. Knowing you can undo removes the fear that
       makes beginners avoid experimenting
-- [ ] Write a program with an obvious bug (an off-by-one loop that reads past the end of
+- [x] Write a program with an obvious bug (an off-by-one loop that reads past the end of
       an array). Build with `-g -O0`
-- [ ] Run it under gdb: set a breakpoint (`break main`), step (`next`, `step`), print
+- [x] Run it under gdb: set a breakpoint (`break main`), step (`next`, `step`), print
       variables (`print i`), inspect the stack (`bt`), continue (`continue`)
-- [ ] Rebuild with `-fsanitize=address,undefined -g` and run it again. Read the sanitizer
+- [x] Rebuild with `-fsanitize=address,undefined -g` and run it again. Read the sanitizer
       report and find the exact line it names
-- [ ] Add a `Sanitize` build option to your `CMakeLists.txt` so you can turn this on
+- [x] Add a `Sanitize` build option to your `CMakeLists.txt` so you can turn this on
       whenever something behaves strangely
-- [ ] Set up your editor: C/C++ extension, format-on-save (clang-format), and confirm
+- [x] Set up your editor: C/C++ extension, format-on-save (clang-format), and confirm
       go-to-definition works via `compile_commands.json`
 
 **Deliverable:** you found a memory bug twice - once with gdb by stepping, once with
@@ -151,9 +151,9 @@ for the next 167 days?
 
 Do not move on until all of these are true.
 
-- [ ] `cmake --build build -j` succeeds from scratch with no warnings
-- [ ] I can create a new `.cpp`, add it to `CMakeLists.txt`, and build it
-- [ ] I understand the difference between compile errors and link errors
-- [ ] I have committed at least 3 times and know how to undo a change
-- [ ] I can set a breakpoint and print a variable's value
-- [ ] I can turn on sanitizers when something is misbehaving
+- [x] `cmake --build build -j` succeeds from scratch with no warnings
+- [x] I can create a new `.cpp`, add it to `CMakeLists.txt`, and build it
+- [x] I understand the difference between compile errors and link errors
+- [x] I have committed at least 3 times and know how to undo a change
+- [x] I can set a breakpoint and print a variable's value
+- [x] I can turn on sanitizers when something is misbehaving
