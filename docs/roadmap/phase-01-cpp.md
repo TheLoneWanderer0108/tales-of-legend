@@ -35,14 +35,14 @@ Research notes used in this phase:
 
 **Tasks**
 
-- [ ] Print a formatted character sheet using hardcoded values: name, level, HP/MaxHP,
+- [x] Print a formatted character sheet using hardcoded values: name, level, HP/MaxHP,
       ATK, DEF, SPD. Align the columns with `std::setw`
-- [ ] Compute and print HP as a percentage. Make it print `73%`, not `0%` - understand
+- [x] Compute and print HP as a percentage. Make it print `73%`, not `0%` - understand
       *why* `73 / 100` is `0` and `73.0 / 100` is not
-- [ ] Read the player's name and level from `std::cin` and print the sheet with them
-- [ ] Print `sizeof` for each numeric type. Print the largest `int` via
+- [x] Read the player's name and level from `std::cin` and print the sheet with them
+- [x] Print `sizeof` for each numeric type. Print the largest `int` via
       `std::numeric_limits<int>::max()`, then add 1 to it and observe the wraparound
-- [ ] Write down which type you will use for HP, for a damage multiplier, and for a
+- [x] Write down which type you will use for HP, for a damage multiplier, and for a
       "player is poisoned" flag, and why
 
 **Deliverable:** `sandbox/day04/character_sheet.cpp` prints a neat sheet from user input.
