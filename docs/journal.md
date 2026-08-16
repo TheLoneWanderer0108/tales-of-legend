@@ -33,3 +33,10 @@ Learned: How to use debug tools, how to find mistakes related to memory problems
 ## Day 4 - 8/14/2026
 Broke: nothing broke, it was just learning types, sizes and calculating with ints and floats.
 Learned: I learned that if you do a division it should be with a double since with an int it gives whole numbers and truncates them, ex, 75/100 would be 0 beacuse 100 fits 0 times in 75, with decimals this problem is solved.
+
+## Day 5 - 8/15/2026
+Broke: I forgot to initialize counters outside of a loop, which resulted in them being reset, tried printing some
+columns but they did not appear.
+Learned: Always declare counters outside the loops, and col and rows dnt print anything unless you specify
+which is why cols where not showing anything, how to get random numbers generated, and the uses of
+if/else and switch statements, ifs are used for conditionals that are in ranges and switch when its much more shorter and used for eact values. i fixed the banana thing for do while loops by flagging the error, clearing the flag and then clearing the buffer.

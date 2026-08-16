@@ -66,11 +66,11 @@ everyone once.
 
 **Tasks**
 
-- [ ] Write a damage classifier: given a damage number, print `Miss`, `Graze`, `Hit`,
+- [x] Write a damage classifier: given a damage number, print `Miss`, `Graze`, `Hit`,
       `Critical` using `if`/`else if` chains
-- [ ] Rewrite it with a `switch` over an `enum`-free integer "tier". Note which version
+- [x] Rewrite it with a `switch` over an `enum`-free integer "tier". Note which version
       reads better and why `switch` needs `break`
-- [ ] Simulate 1000 attacks with a random damage roll (`<random>`: `std::mt19937` and
+- [x] Simulate 1000 attacks with a random damage roll (`<random>`: `std::mt19937` and
       `std::uniform_int_distribution`) and print how many landed in each tier
 - [ ] Write a menu loop: print `1) Attack 2) Defend 3) Run 4) Quit`, read a choice, act,
       loop until quit. Handle invalid input without crashing or infinite-looping
