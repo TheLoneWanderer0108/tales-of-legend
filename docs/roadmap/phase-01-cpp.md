@@ -72,9 +72,9 @@ everyone once.
       reads better and why `switch` needs `break`
 - [x] Simulate 1000 attacks with a random damage roll (`<random>`: `std::mt19937` and
       `std::uniform_int_distribution`) and print how many landed in each tier
-- [ ] Write a menu loop: print `1) Attack 2) Defend 3) Run 4) Quit`, read a choice, act,
+- [x] Write a menu loop: print `1) Attack 2) Defend 3) Run 4) Quit`, read a choice, act,
       loop until quit. Handle invalid input without crashing or infinite-looping
-- [ ] Write a nested loop that prints a 10x5 grid of `.` characters with `#` walls around
+- [x] Write a nested loop that prints a 10x5 grid of `.` characters with `#` walls around
       the edge. This is your first tilemap, in text
 
 **Deliverable:** a menu loop that cannot be broken by typing `banana`.
@@ -97,7 +97,7 @@ and lifetime, function overloading, default arguments, why global variables hurt
 
 **Tasks**
 
-- [ ] Take yesterday's menu program and extract at least five functions:
+- [x] Take yesterday's menu program and extract at least five functions:
       `PrintMenu`, `ReadChoice`, `RollDamage`, `ApplyDamage`, `PrintStatus`
 - [ ] Write `int RollDamage(int attack, int defense, int variancePercent)` and test it
       with edge cases: zero attack, defense higher than attack (should never return

@@ -40,3 +40,11 @@ columns but they did not appear.
 Learned: Always declare counters outside the loops, and col and rows dnt print anything unless you specify
 which is why cols where not showing anything, how to get random numbers generated, and the uses of
 if/else and switch statements, ifs are used for conditionals that are in ranges and switch when its much more shorter and used for eact values. i fixed the banana thing for do while loops by flagging the error, clearing the flag and then clearing the buffer.
+
+## Day 6 - 8/16/2026
+Broke: Some health variables overwrote themselves, some logic didnot apply as i was doing incorectly, some logical issues
+Learned: The importance of clamps, declare variables twice for health, one for current health and one for max so you can have
+a max range when passing to functions and have the other to be dynamic beacuse it changes, same with enemy health,
+learned the use of void, use it when you dont want to return anything, learned more about fucntions and fucntion overload.
+how much easier was it to find a bug once the logic was in named functions? easier since the job was segmentated, just had
+to look at that piece of code.

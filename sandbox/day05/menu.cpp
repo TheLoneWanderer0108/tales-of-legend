@@ -16,8 +16,7 @@ int main(){
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-
-
+        
         else if( options == 1){
             std::cout << "you attacked\n";
         }
