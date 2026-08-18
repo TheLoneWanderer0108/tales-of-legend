@@ -48,3 +48,9 @@ a max range when passing to functions and have the other to be dynamic beacuse i
 learned the use of void, use it when you dont want to return anything, learned more about fucntions and fucntion overload.
 how much easier was it to find a bug once the logic was in named functions? easier since the job was segmentated, just had
 to look at that piece of code.
+
+## Day 7 - 8/17/2026
+Broke: Learned that indexes cannot be negative when being itirated, which makes sense since index starts t 0, anything that broke was intentional
+Learned: Learned about const and vectors, i can know there sizes with .size(), learned how to delete them and the meaning behind &,
+which is to not make a copy of he vector instead use the original. what did AddressSanitizer say, and what would you have done without it?
+sanitizer told me about trying to look at an index that did not exist and aborted the loop, killing the program.

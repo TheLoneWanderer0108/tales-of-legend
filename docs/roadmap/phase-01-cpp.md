@@ -99,14 +99,14 @@ and lifetime, function overloading, default arguments, why global variables hurt
 
 - [x] Take yesterday's menu program and extract at least five functions:
       `PrintMenu`, `ReadChoice`, `RollDamage`, `ApplyDamage`, `PrintStatus`
-- [ ] Write `int RollDamage(int attack, int defense, int variancePercent)` and test it
+- [x] Write `int RollDamage(int attack, int defense, int variancePercent)` and test it
       with edge cases: zero attack, defense higher than attack (should never return
       negative), huge numbers
-- [ ] Write `bool IsDead(int hp)` and `int Clamp(int value, int low, int high)` yourself.
+- [x] Write `bool IsDead(int hp)` and `int Clamp(int value, int low, int high)` yourself.
       You will use `Clamp` hundreds of times over the next eight months
-- [ ] Overload `Heal` for a flat amount and for a percentage. Decide whether overloading
+- [x] Overload `Heal` for a flat amount and for a percentage. Decide whether overloading
       or two clear names (`HealFlat`, `HealPercent`) is better here, and justify it
-- [ ] Move all your declarations to `battle.h` and definitions to `battle.cpp`, build both
+- [x] Move all your declarations to `battle.h` and definitions to `battle.cpp`, build both
       with your CMake target
 
 **Deliverable:** `main` is under 30 lines and reads like a description of the program.
@@ -129,15 +129,15 @@ iterators (lightly), `emplace_back`, `erase`, out-of-bounds is undefined behavio
 
 **Tasks**
 
-- [ ] Store a party of 3 names in a `std::vector<std::string>` and print them numbered
-- [ ] Store HP in a parallel `std::vector<int>`. Feel the awkwardness of keeping two
+- [x] Store a party of 3 names in a `std::vector<std::string>` and print them numbered
+- [x] Store HP in a parallel `std::vector<int>`. Feel the awkwardness of keeping two
       vectors in sync - that pain is the argument for `struct`, which arrives on Day 11
-- [ ] Write `int TotalHP(const std::vector<int>& hps)`. Note why the parameter is
+- [x] Write `int TotalHP(const std::vector<int>& hps)`. Note why the parameter is
       `const&`, even though you do not fully understand references until Day 9
-- [ ] Write a function that removes all dead party members from the vector. Do it with a
+- [x] Write a function that removes all dead party members from the vector. Do it with a
       loop, get the bug where erasing while iterating skips an element, then fix it.
       Afterwards look up `std::erase_if` and see how the standard library solves it
-- [ ] Index out of bounds on purpose. Then rebuild with `-fsanitize=address` and see it
+- [x] Index out of bounds on purpose. Then rebuild with `-fsanitize=address` and see it
       caught precisely. Remember this feeling
 
 **Deliverable:** a party list you can add to, print, and remove dead members from.
