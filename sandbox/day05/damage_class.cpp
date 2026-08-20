@@ -17,7 +17,7 @@ int main(){
     int critical = 0;
     //this initializes the seed
     std::random_device rd;
-    //this initiales the algorith used
+    //this initiales the algorith used combined with the seed
     std::mt19937 gen(rd());
     //this is the range
     std::uniform_int_distribution<int> dist(1, 20);

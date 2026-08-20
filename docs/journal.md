@@ -54,3 +54,9 @@ Broke: Learned that indexes cannot be negative when being itirated, which makes 
 Learned: Learned about const and vectors, i can know there sizes with .size(), learned how to delete them and the meaning behind &,
 which is to not make a copy of he vector instead use the original. what did AddressSanitizer say, and what would you have done without it?
 sanitizer told me about trying to look at an index that did not exist and aborted the loop, killing the program.
+
+## Day 8 - 8/19/2026
+Broke: When trying to do the typewriter it paaused and then gave me the string, some variables left over wich i forgot to add.
+Learned: cout keeps a buffer that only appears on screen when a new line happens or the program ends, flush forces it to show its contents
+as they come, learned to use vectors better, adn the keyword auto which allows the compiler to figure the from whateevr is on the right side =.
+the edge case was if the data presented mas malformed, so i used try and catch for the first time.

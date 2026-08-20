@@ -160,17 +160,17 @@ Printing state is the debugging technique you will use most this year.
 
 **Tasks**
 
-- [ ] Write `std::string WrapText(const std::string& text, int columnWidth)` that inserts
+- [x] Write `std::string WrapText(const std::string& text, int columnWidth)` that inserts
       newlines at word boundaries. This is the actual algorithm your dialogue box will need
       in Phase 4, so do it properly
-- [ ] Write a typewriter effect in the console: print one character at a time with a small
+- [x] Write a typewriter effect in the console: print one character at a time with a small
       sleep (`std::this_thread::sleep_for`). This is also a Phase 4 system, prototyped in
       15 lines
-- [ ] Write `std::vector<std::string> Split(const std::string& line, char delimiter)`.
+- [x] Write `std::vector<std::string> Split(const std::string& line, char delimiter)`.
       You will need this for parsing data files on Day 20
-- [ ] Build a message formatter: given `"{attacker} hits {target} for {damage}!"`,
+- [x] Build a message formatter: given `"{attacker} hits {target} for {damage}!"`,
       replace the placeholders with real values
-- [ ] Parse `"Goblin,12,4,2,3"` into name and four integers, with `std::stoi`. Handle a
+- [x] Parse `"Goblin,12,4,2,3"` into name and four integers, with `std::stoi`. Handle a
       malformed line without crashing
 
 **Deliverable:** `WrapText` and `Split` work correctly, including on empty strings and
