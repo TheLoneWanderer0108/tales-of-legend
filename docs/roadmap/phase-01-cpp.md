@@ -197,6 +197,7 @@ sections 1-3.
 
 **Tasks**
 
+<<<<<<< HEAD
 - [x] Write `void HealByValue(int hp)` and `void HealByReference(int& hp)`. Call both.
       Print the result. Explain out loud why they differ
 - [x] Write `void PrintParty(const std::vector<std::string>& party)`. Remove the `const&`
@@ -205,6 +206,16 @@ sections 1-3.
 - [x] Take a pointer to a local variable, print the address with `std::cout`, dereference
       it, modify through it
 - [x] Write a function that returns a pointer to the party member with the lowest HP, or
+=======
+- [ ] Write `void HealByValue(int hp)` and `void HealByReference(int& hp)`. Call both.
+      Print the result. Explain out loud why they differ
+- [ ] Write `void PrintParty(const std::vector<std::string>& party)`. Remove the `const&`
+      and note that it still works - then explain what changed invisibly (a copy of the
+      whole vector)
+- [ ] Take a pointer to a local variable, print the address with `std::cout`, dereference
+      it, modify through it
+- [ ] Write a function that returns a pointer to the party member with the lowest HP, or
+>>>>>>> origin/main
       `nullptr` if the party is empty. Call it, check for null before using it
 - [ ] Deliberately create a dangling reference: return a reference to a local variable from
       a function. Build with sanitizers and see what happens. **Write down the rule you
