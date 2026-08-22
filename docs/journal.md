@@ -59,17 +59,14 @@ sanitizer told me about trying to look at an index that did not exist and aborte
 Broke: When trying to do the typewriter it paaused and then gave me the string, some variables left over wich i forgot to add.
 Learned: cout keeps a buffer that only appears on screen when a new line happens or the program ends, flush forces it to show its contents
 as they come, learned to use vectors better, adn the keyword auto which allows the compiler to figure the from whateevr is on the right side =.
-<<<<<<< HEAD
 the edge case was if the data presented mas malformed, so i used try and catch for the first time.
 
 ## Day 9 - 8/22/2026
 Broke: Some stuff was suppose to break, it was part of learning
-learned: the use of pointers | I want to... | Use |
+learned: the use of pointers
+| I want to... | Use |
 | --- | --- |
 | read a big object without copying | const& |
 | modify the caller's variable | & |
 | say "maybe there is no object" | * |
 | pass a small number like `int` | its so small is not really needed &|
-=======
-the edge case was if the data presented mas malformed, so i used try and catch for the first time.
->>>>>>> origin/main
