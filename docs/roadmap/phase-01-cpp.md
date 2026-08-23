@@ -243,16 +243,16 @@ sections 4-5.
 
 **Tasks**
 
-- [ ] Allocate an `int` with `new`, use it, `delete` it. Then forget the `delete` and find
+- [x] Allocate an `int` with `new`, use it, `delete` it. Then forget the `delete` and find
       the leak with `-fsanitize=address` (or `valgrind ./prog` if you install it)
-- [ ] Allocate an array with `new int[10]`, fill it, and free it with `delete[]`. Free it
+- [x] Allocate an array with `new int[10]`, fill it, and free it with `delete[]`. Free it
       with plain `delete` instead and read the sanitizer complaint
-- [ ] Write the same program with `std::vector<int>` and count how many lines of
+- [x] Write the same program with `std::vector<int>` and count how many lines of
       bookkeeping disappeared
-- [ ] Write a C-style array function `int Sum(const int* data, int count)` so you
+- [x] Write a C-style array function `int Sum(const int* data, int count)` so you
       understand what "array decays to pointer" means. This is why raylib's C API takes
       pointer + count everywhere
-- [ ] **Mini project:** a stat generator. Roll a character's stats from a seed, apply a
+- [x] **Mini project:** a stat generator. Roll a character's stats from a seed, apply a
       class modifier (Warrior +ATK, Mage +MAG, Rogue +SPD), print the sheet, and let the
       user reroll. Use only what you have learned so far
 

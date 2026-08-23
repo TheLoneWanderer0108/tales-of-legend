@@ -70,3 +70,10 @@ learned: the use of pointers
 | modify the caller's variable | & |
 | say "maybe there is no object" | * |
 | pass a small number like `int` | its so small is not really needed &|
+
+## Day 10 - 8/22/2026
+Broke: Forgot to clean the memory after using it
+Learned: About the usage of pointer and memory allocation, "I use `new`
+only when i want to allocate and initialze memory for a variable, after this day never again".
+why does modern C++ advice say to avoid `new`? Because allocating memory yourself can be dangerous and have
+huge risks in your code, also forces you to use delete.
