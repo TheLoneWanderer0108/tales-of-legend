@@ -89,7 +89,9 @@ The core of the combat. Each attack has an input mini-interaction.
 Decided in Phase 5. Write the final formula here plus one worked example:
 
 ```
-TBD
+atk²/(atk+def), if attack is 20 and defense is 10, 20^2/(20+10) = 400/30 = 13.3 truncated to 13.
+0 is allowed as damage if defense is high enough.
+variance/crits later
 ```
 
 ---

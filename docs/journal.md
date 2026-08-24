@@ -77,3 +77,11 @@ Learned: About the usage of pointer and memory allocation, "I use `new`
 only when i want to allocate and initialze memory for a variable, after this day never again".
 why does modern C++ advice say to avoid `new`? Because allocating memory yourself can be dangerous and have
 huge risks in your code, also forces you to use delete.
+
+## Day 11 - 8/24/2026
+Broke: Nothing really broke, just have tomake sure to use the necessary {} when nesting a vector.
+Learned: Game design for damage and defense, how to organize my structs, and think about game balance
+which damage formula felt best and why? Copy the winner into the design doc. my game will work with a
+bit larger numbers the formula is atk²/(atk+def), this allows for defense to be meaningful
+but not overpowered same thing with attack, also no huge spikes with 0, 0 damage is allowed as a way to show how powerful
+you become, also i want to add variance and crits and this gives me room for both.

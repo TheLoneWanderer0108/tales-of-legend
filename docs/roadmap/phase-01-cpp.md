@@ -279,15 +279,15 @@ initialisers, `struct` containing `struct`, vectors of structs.
 
 **Tasks**
 
-- [ ] Define `struct Stats { int maxHp = 1; int hp = 1; int atk = 1; int def = 0; int spd = 1; };`
-- [ ] Define `struct Actor { std::string name; Stats stats; bool isEnemy = false; };`
-- [ ] Rewrite Day 7's party as `std::vector<Actor>` and delete the parallel vectors
-- [ ] Write free functions: `void PrintActor(const Actor&)`,
+- [x] Define `struct Stats { int maxHp = 1; int hp = 1; int atk = 1; int def = 0; int spd = 1; };`
+- [x] Define `struct Actor { std::string name; Stats stats; bool isEnemy = false; };`
+- [x] Rewrite Day 7's party as `std::vector<Actor>` and delete the parallel vectors
+- [x] Write free functions: `void PrintActor(const Actor&)`,
       `bool IsAlive(const Actor&)`, `void ApplyDamage(Actor&, int amount)`
-- [ ] Write `int ComputeDamage(const Actor& attacker, const Actor& target)` using a real
+- [x] Write `int ComputeDamage(const Actor& attacker, const Actor& target)` using a real
       formula. Start with `atk * atk / (atk + def)` and try several. Compare with the
       formulas in [rpg-math-and-balance.md](../research/rpg-math-and-balance.md)
-- [ ] Print a damage table: your formula's output for attacker ATK 5-30 against target DEF
+- [x] Print a damage table: your formula's output for attacker ATK 5-30 against target DEF
       0-20. Look for places where damage goes to zero or explodes
 
 **Deliverable:** a `Actor`-based party, and a damage table you have actually looked at.
