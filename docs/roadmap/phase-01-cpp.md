@@ -311,16 +311,16 @@ existence.
 
 **Tasks**
 
-- [ ] Convert `Actor` into a class with private `hp_` and public
+- [x] Convert `Actor` into a class with private `hp_` and public
       `int Hp() const`, `void TakeDamage(int)`, `void Heal(int)`
-- [ ] Make it impossible for `hp_` to exceed `maxHp_` or drop below 0 - clamp inside the
+- [x] Make it impossible for `hp_` to exceed `maxHp_` or drop below 0 - clamp inside the
       class, not at every call site. This is the entire point of encapsulation
-- [ ] Write a constructor `Actor(std::string name, Stats stats)` using a member
+- [x] Write a constructor `Actor(std::string name, Stats stats)` using a member
       initialiser list. Understand why the list is preferred over assigning in the body
-- [ ] Mark every member function that does not modify state as `const`. Then try to call a
+- [x] Mark every member function that does not modify state as `const`. Then try to call a
       non-`const` function on a `const Actor&` and read the error
-- [ ] Add `bool IsAlive() const` and remove the free function version
-- [ ] Ask yourself for each getter: does the outside world need this, or am I adding it
+- [x] Add `bool IsAlive() const` and remove the free function version
+- [x] Ask yourself for each getter: does the outside world need this, or am I adding it
       reflexively? Delete the ones nothing calls
 
 **Deliverable:** an `Actor` class whose HP is impossible to corrupt from outside.
