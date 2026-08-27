@@ -383,14 +383,14 @@ sections 1-3.
 
 **Tasks**
 
-- [ ] Define an abstract `Skill` with
+- [x] Define an abstract `Skill` with
       `virtual void Execute(Actor& user, Actor& target) = 0;`,
       `virtual std::string Name() const = 0;` and a `virtual ~Skill() = default;`
-- [ ] Implement three: `Attack`, `Fireball` (costs FP, ignores some DEF),
+- [x] Implement three: `Attack`, `Fireball` (costs FP, ignores some DEF),
       `Heal` (targets an ally)
-- [ ] Store them as `std::vector<std::unique_ptr<Skill>>` (you will meet `unique_ptr`
+- [x] Store them as `std::vector<std::unique_ptr<Skill>>` (you will meet `unique_ptr`
       properly on Day 18; for today, use `std::make_unique` and move on)
-- [ ] Loop over the vector and call `Execute` through the base pointer. Watch the correct
+- [x] Loop over the vector and call `Execute` through the base pointer. Watch the correct
       derived version run. That is dynamic dispatch
 - [ ] Now **remove** the `virtual` from the destructor, delete through a base pointer, and
       run with sanitizers. Read the report. Never forget this
