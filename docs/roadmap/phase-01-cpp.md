@@ -346,17 +346,17 @@ sections 6-7.
 
 **Tasks**
 
-- [ ] Write a `ScopedLog` class that prints `"enter X"` in its constructor and
+- [x] Write a `ScopedLog` class that prints `"enter X"` in its constructor and
       `"exit X"` in its destructor. Create them in nested scopes, in a vector, inside an
       `if`. Predict the output order **before** running, every time
-- [ ] Explain in your journal how this class is exactly the pattern raylib's
+- [x] Explain in your journal how this class is exactly the pattern raylib's
       `InitWindow`/`CloseWindow` pairs want to become
-- [ ] Add print statements to the copy constructor of a class and count how many copies
+- [x] Add print statements to the copy constructor of a class and count how many copies
       happen when you `push_back` an object into a vector, then when you `reserve` first
-- [ ] Pass an object by value to a function and count the copies. Change to `const&` and
+- [x] Pass an object by value to a function and count the copies. Change to `const&` and
       count again
-- [ ] Use `std::move` when pushing a large object into a vector and observe the difference
-- [ ] Write the "rule of zero" rule in your journal: if your class owns no raw resource,
+- [x] Use `std::move` when pushing a large object into a vector and observe the difference
+- [x] Write the "rule of zero" rule in your journal: if your class owns no raw resource,
       write no destructor, no copy constructor, no assignment operator
 
 **Deliverable:** you can predict destructor order in nested scopes without running.

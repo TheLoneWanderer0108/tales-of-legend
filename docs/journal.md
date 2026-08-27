@@ -90,3 +90,8 @@ you become, also i want to add variance and crits and this gives me room for bot
 Broke: Forgot that class privates the variables, so i have to set a constructor for it
 Learned: The importance of constructors and why i dont need setters everywhere,
 name one bug that encapsulation makes impossible. a function accidentally modifying a value like hp
+
+## Day 13 - 8/26/2026
+Broke: No bugs really, today was more about best practices and such.
+Learned: The importance of deconstructors, why use templates and why copying large vectors is not such a good idea;
+Write the "rule of zero" rule in your journal: you should not manually define special member functions such as destructors, copy/move constructors, or copy/move assignment operators. Instead, rely on the compiler-generated defaults and let member objects (like std::string, std::vector, std::unique_ptr) handle resource management for you. In raylib, InitWindow is responsible for initializing system resources needed for rendering (i.e., creating a window), while CloseWindow cleans up those resources when they are no longer needed. In both cases, the constructor signifies the start of a resource management procedure (opening a window, entering a log scope), while the destructor ensures that resources are properly released or cleaned up (closing the window, exiting a log scope).
