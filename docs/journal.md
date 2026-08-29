@@ -96,6 +96,11 @@ Broke: No bugs really, today was more about best practices and such.
 Learned: The importance of deconstructors, why use templates and why copying large vectors is not such a good idea;
 Write the "rule of zero" rule in your journal: you should not manually define special member functions such as destructors, copy/move constructors, or copy/move assignment operators. Instead, rely on the compiler-generated defaults and let member objects (like std::string, std::vector, std::unique_ptr) handle resource management for you. In raylib, InitWindow is responsible for initializing system resources needed for rendering (i.e., creating a window), while CloseWindow cleans up those resources when they are no longer needed. In both cases, the constructor signifies the start of a resource management procedure (opening a window, entering a log scope), while the destructor ensures that resources are properly released or cleaned up (closing the window, exiting a log scope).
 
-## Day 12 - 8/27/2026
+## Day 14 - 8/27/2026
 Broke: i need to initialzed the unique pointers when using them
-Learned: The importance of virtual when dealing with inherentance,  If you delete or destroy through a base pointer — including unique_ptr<Base> — the base destructor must be virtual.
+Learned: The importance of virtual when dealing with inheritance,  If you delete or destroy through a base pointer — including unique_ptr<Base> — the base destructor must be virtual. A vtable is a per-class table of function pointers that lets C++ call the correct overridden function — and the correct destructor — at runtime when using a base pointer.
+
+## Day 15 - 8/28/2026
+Broke: I kept passing the wrong thing into execute — Enemy instead of Actor — and forgot the third argument (kind) in my skill loop.
+Learned: Deep inheritance falls apart when enemy traits combine (flying + fire + boss + sometimes grounded). One Enemy struct with flags, 
+element, and a skill list scales better; skills are data rows with a kind field, not a class per spell.

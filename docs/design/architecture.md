@@ -71,6 +71,15 @@ those is the point.
 
 ---
 
+### D002 - where you will allow inheritance (interfaces with behaviour: `Skill`, `GameState`, `AiBehaviour`) and where you will not (enemy types, item types)
+**Date**:8/28/2026
+**Decision**: Enemies and items are composed structs + data, not class hierarchies. Inheritance is reserved for behavior interfaces like GameState, ActionCommand,
+    and maybe AiBehaviour.
+**Why**: Content variety is mostly stats/flags/skills, not new algorithms. Deep trees break when traits combine. Data scales without recompiling.
+**Cost accepted**: Slightly more boilerplate now; skills may move from classes to structs later (task 5).
+
+---
+
 ## System inventory
 
 Fill a row in each day you finish a system.

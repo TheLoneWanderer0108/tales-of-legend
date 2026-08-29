@@ -392,9 +392,9 @@ sections 1-3.
       properly on Day 18; for today, use `std::make_unique` and move on)
 - [x] Loop over the vector and call `Execute` through the base pointer. Watch the correct
       derived version run. That is dynamic dispatch
-- [ ] Now **remove** the `virtual` from the destructor, delete through a base pointer, and
+- [x] Now **remove** the `virtual` from the destructor, delete through a base pointer, and
       run with sanitizers. Read the report. Never forget this
-- [ ] Write in your journal what a vtable is, in one sentence
+- [x] Write in your journal what a vtable is, in one sentence
 
 **Deliverable:** a skill list you can iterate and execute polymorphically.
 
@@ -419,17 +419,17 @@ sections 4-6.
 
 **Tasks**
 
-- [ ] Design, on paper, an enemy hierarchy with inheritance:
+- [x] Design, on paper, an enemy hierarchy with inheritance:
       `Enemy -> FlyingEnemy -> FlyingFireEnemy -> FlyingFireBossEnemy`. Then add the
       requirement "a grounded fire boss that sometimes flies". Watch it fall apart
-- [ ] Redesign it with composition: one `Enemy` class holding
+- [x] Redesign it with composition: one `Enemy` class holding
       `bool canFly; Element element; std::vector<std::unique_ptr<Skill>> skills; AiProfile ai;`
-- [ ] Prove object slicing to yourself: store derived objects in a `std::vector<Base>`
+- [x] Prove object slicing to yourself: store derived objects in a `std::vector<Base>`
       (not pointers), call a virtual function, watch the base version run
-- [ ] Write your rule in [../design/architecture.md](../design/architecture.md) as decision
+- [x] Write your rule in [../design/architecture.md](../design/architecture.md) as decision
       **D002**: where you will allow inheritance (interfaces with behaviour: `Skill`,
       `GameState`, `AiBehaviour`) and where you will not (enemy types, item types)
-- [ ] Convert the three skills from Day 14 into data where possible: could `Fireball` be
+- [x] Convert the three skills from Day 14 into data where possible: could `Fireball` be
       a `Skill` **struct** with fields (power, element, cost, target rule) instead of a
       subclass? Try it. Note which approach you would rather add 40 skills to
 
