@@ -450,16 +450,16 @@ silently, `find`/`contains`, `std::sort` with a comparator, iterator invalidatio
 
 **Tasks**
 
-- [ ] Build `std::unordered_map<std::string, Stats>` as an enemy database keyed by name.
+- [x] Build `std::unordered_map<std::string, Stats>` as an enemy database keyed by name.
       Look up `"Goblin"`. Look up `"Grblin"` with `operator[]` and notice it silently
       creates an empty entry - then fix it with `find` or `contains`
-- [ ] Build an inventory as `std::unordered_map<std::string, int>` (item name to count).
+- [x] Build an inventory as `std::unordered_map<std::string, int>` (item name to count).
       Write `Add`, `Remove` (removing the key at zero), and `Count`
-- [ ] Sort a party by SPD descending with `std::sort` and a lambda comparator. This is
+- [x] Sort a party by SPD descending with `std::sort` and a lambda comparator. This is
       literally your battle turn order
-- [ ] Handle SPD ties deterministically (tie-break by index) and explain why determinism
+- [x] Handle SPD ties deterministically (tie-break by index) and explain why determinism
       matters for a game you want to debug
-- [ ] Compare `std::map` and `std::unordered_map`: print iteration order of both. Write
+- [x] Compare `std::map` and `std::unordered_map`: print iteration order of both. Write
       down when you would pick each
 
 **Deliverable:** a turn order function `std::vector<int> TurnOrder(const std::vector<Actor>&)`.

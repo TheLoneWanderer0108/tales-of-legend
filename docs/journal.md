@@ -104,3 +104,7 @@ Learned: The importance of virtual when dealing with inheritance,  If you delete
 Broke: I kept passing the wrong thing into execute — Enemy instead of Actor — and forgot the third argument (kind) in my skill loop.
 Learned: Deep inheritance falls apart when enemy traits combine (flying + fire + boss + sometimes grounded). One Enemy struct with flags, 
 element, and a skill list scales better; skills are data rows with a kind field, not a class per spell.
+
+## Day 16 - 8/29/2026
+Broke: Turn order / sorting indices confused me; operator[] silently added "Grblin" to the enemy DB.
+Learned:  unordered_map for fast lookup, map when you need sorted keys; sort slot numbers, not the party.
