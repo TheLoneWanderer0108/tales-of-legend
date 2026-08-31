@@ -16,6 +16,15 @@ FetchContent_Declare(raylib
 FetchContent_MakeAvailable(raylib)
 
 add_executable(game src/main.cpp)
+add_executable(day17
+        sandbox/day17/main.cpp
+        sandbox/day17/actor.cpp
+        sandbox/day17/skill.cpp
+        sandbox/day17/battle.cpp
+        sandbox/day17/text.cpp
+
+)
+target_compile_options(day17 PRIVATE -Wall -Wextra)
 target_link_libraries(game PRIVATE raylib)
 target_compile_options(game PRIVATE -Wall -Wextra)
 

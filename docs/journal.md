@@ -108,3 +108,8 @@ element, and a skill list scales better; skills are data rows with a kind field,
 ## Day 16 - 8/29/2026
 Broke: Turn order / sorting indices confused me; operator[] silently added "Grblin" to the enemy DB.
 Learned:  unordered_map for fast lookup, map when you need sorted keys; sort slot numbers, not the party.
+
+## Day 17 - 8/31/2026
+Broke: CMake wanted Ninja but build/ had old Makefiles; also wrote execute instead of Skill::execute and the IDE was right.
+Learned: Touching main.cpp only recompiled 1 file. Touching a shared header would recompile all of them. That's why #pragma once and lean 
+headers matter.

@@ -483,17 +483,17 @@ forward declarations, `inline`, circular include problems, include-what-you-use.
 
 **Tasks**
 
-- [ ] Split everything you have written into: `actor.h/.cpp`, `stats.h`, `skill.h/.cpp`,
+- [x] Split everything you have written into: `actor.h/.cpp`, `stats.h`, `skill.h/.cpp`,
       `battle.h/.cpp`, `text.h/.cpp`, `main.cpp`
-- [ ] Add `#pragma once` to every header. Remove it from one and see the redefinition
+- [x] Add `#pragma once` to every header. Remove it from one and see the redefinition
       error to understand what it prevents
-- [ ] Create a deliberate circular include (`actor.h` includes `skill.h` which includes
+- [x] Create a deliberate circular include (`actor.h` includes `skill.h` which includes
       `actor.h`) and fix it with a forward declaration `class Actor;`
-- [ ] Move `#include <vector>` etc. out of headers where a forward declaration suffices.
+- [x] Move `#include <vector>` etc. out of headers where a forward declaration suffices.
       Note that headers should include only what their declarations need
-- [ ] Update `CMakeLists.txt` to list your sources. Learn why `file(GLOB ...)` is
+- [x] Update `CMakeLists.txt` to list your sources. Learn why `file(GLOB ...)` is
       convenient and why it is discouraged (CMake will not notice new files)
-- [ ] Time a full rebuild vs a rebuild after touching one `.cpp`. Then touch a widely
+- [x] Time a full rebuild vs a rebuild after touching one `.cpp`. Then touch a widely
       included header and time it again. This is why header hygiene matters
 
 **Deliverable:** a clean multi-file build, no header including more than it needs.
