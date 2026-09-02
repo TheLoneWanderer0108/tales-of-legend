@@ -12,40 +12,137 @@ made and why**. That last part is the valuable one.
 
 This is where the roadmap is heading. You will not have most of it for months.
 
-```mermaid
-flowchart TD
-    main[main.cpp] --> Game
-    Game --> StateStack
-    Game --> Assets[AssetManager]
-    Game --> InputMap
-    Game --> Audio[AudioManager]
+### System hierarchy (owns)
 
-    StateStack --> TitleState
-    StateStack --> FieldState
-    StateStack --> BattleState
-    StateStack --> MenuState
+```
+main.cpp
+└── Game
+    ├── StateStack
+    │   ├── TitleState
+    │   ├── FieldState
+    │   │   ├── TileMap
+    │   │   ├── EntityList
+    │   │   ├── Camera
+    │   │   ├── DialogueRunner
+    │   │   └── CutsceneQueue
+    │   ├── BattleState
+    │   │   ├── Actors (battle view)
+    │   │   ├── TurnQueue
+    │   │   ├── ActionCommand
+    │   │   ├── BattleUI
+    │   │   └── Sequencer
+    │   └── MenuState
+    ├── AssetManager
+    ├── InputMap
+    └── AudioManager
+```
 
-    FieldState --> TileMap
-    FieldState --> EntityList
-    FieldState --> Camera
-    FieldState --> Dialogue[DialogueRunner]
-    FieldState --> Cutscene[CutsceneQueue]
+### Shared data (who touches what)
 
-    BattleState --> Actors
-    BattleState --> TurnQueue
-    BattleState --> ActionCommand
-    BattleState --> BattleUI
-    BattleState --> Sequencer
+| Data | Owner | FieldState | BattleState | MenuState | SaveSystem |
+| --- | --- | --- | --- | --- | --- |
+| PartyData | GameSession* | uses | uses | uses | reads/writes |
+| GameFlags | GameSession* | uses | uses | uses | reads/writes |
+| Textures / audio | AssetManager | uses | uses | uses | — |
 
-    Actors --> PartyData
-    FieldState --> PartyData
-    MenuState --> PartyData
-    PartyData --> SaveSystem
-    Flags[GameFlags] --> SaveSystem
+\*Party and flags live in `GameSession` once it exists; today they are still local in sandbox `main`.
+
+### Battle vs party (the rule)
+
+```
+  OWNS (creates + destroys)          USES ONLY (borrow)
+  ─────────────────────────          ──────────────────
+
+  GameSession ──owns──> Party        BattleState ──borrows──> Party
+       │                                      │
+       │                                      │ Actor& / Actor*
+       │                                      │ (damage, heal, turn order)
+       v                                      v
+  survives battle end                  destroyed when battle ends
 ```
 
 Key ownership rule to aim for: **game data (party, inventory, flags) outlives states**.
 A battle must not own the party, or the party dies when the battle ends.
+
+---
+
+## Ownership graph (Day 18)
+
+Current sandbox (Days 14–17) vs target game. **Owns** = creates and destroys.
+**Uses** = non-owning pointer or reference only.
+
+### Target game (keep this current as you build)
+
+**Tree — who owns what**
+
+```
+Game
+├── owns Window, AudioDevice              (RAII wrappers)
+├── owns AssetManager                     (textures, fonts, sounds)
+├── owns InputMap
+├── owns GameSession                      (party, inventory, flags, quests — survives all states)
+└── owns StateStack
+    ├── owns FieldState
+    │   ├── owns MapData
+    │   ├── owns EntityWorld              (entities by value; refer by ID, not stored pointers)
+    │   └── uses GameSession, AssetManager
+    └── owns BattleState
+        ├── owns Combatants               (battle-only wrappers; non-owning refs into GameSession party)
+        ├── owns TurnQueue, BattleUI, Sequencer
+        └── uses GameSession, AssetManager
+```
+
+**Chart — ownership vs borrowing**
+
+| System | Relationship | Target | Lifetime |
+| --- | --- | --- | --- |
+| Game | owns | GameSession | whole program |
+| Game | owns | StateStack | whole program |
+| Game | owns | AssetManager | whole program |
+| GameSession | owns | Party, inventory, flags | whole program |
+| StateStack | owns | FieldState, BattleState, … | whole program |
+| FieldState | owns | MapData, EntityWorld | while field is active |
+| FieldState | **uses** | GameSession (party) | non-owning |
+| FieldState | **uses** | AssetManager | non-owning |
+| BattleState | owns | TurnQueue, Combatants, BattleUI | **battle only** |
+| BattleState | **uses** | GameSession (party) | non-owning — **must not own** |
+| BattleState | **uses** | AssetManager | non-owning |
+| Combatants | **uses** | `Actor&` into party | non-owning pointers/refs |
+
+**Pointer rules (Day 18)**
+
+| Role | Type to use | Example |
+| --- | --- | --- |
+| Owner | `unique_ptr` or value | `vector<unique_ptr<Skill>>`, `vector<Actor> party` |
+| Borrower | raw pointer or reference | `void UseSkill(const Skill* s)`, `Actor& user` |
+| Rare shared ownership | `shared_ptr` + document why | avoid in this project |
+| Break cycles | `weak_ptr` on back-link | `sandbox/day18/cycle.cpp` |
+
+### Who owns what (reference table)
+
+| Object | Owner | Users (non-owning) |
+| --- | --- | --- |
+| Party, inventory, quest flags | `GameSession` | `FieldState`, `BattleState`, `MenuState` |
+| Battle turn order, enemy slots | `BattleState` | — (dies with battle) |
+| Combatant HP during fight | `GameSession` party actors (mutated in place) | `BattleState` reads/writes via `Actor*` / `Actor&` |
+| Skills on an actor/enemy | That actor's `vector<Skill>` (by value) | Battle code calls `execute` with `Skill*` or `const Skill&` |
+| Polymorphic skill list (sandbox) | `vector<unique_ptr<Skill>>` | Functions take `Skill*` via `.get()` |
+| Textures, fonts, audio | `AssetManager` | All states |
+| Map tiles, entities on field | `FieldState` | — |
+
+### Load-bearing rules
+
+1. **Battle does not own the party.** `BattleState` borrows `Actor&` / `Actor*` from `GameSession`.
+   When battle ends, party data must still exist for the field and save system.
+2. **Default owner is `unique_ptr` or value.** `vector<Actor>` for party; `vector<Skill>` for data-driven skills.
+3. **`shared_ptr` only when you can draw the graph and explain every ref count.** Prefer one owner + observers.
+   Cycles need `weak_ptr` on the back-reference — see `sandbox/day18/cycle.cpp`.
+4. **Never store raw pointers to `vector` elements across `push_back`.** Use indices/IDs or re-lookup each frame.
+
+### Sandbox today (Day 17)
+
+`main` owns `vector<Actor> party` locally. No `GameSession` yet — when battle code grows,
+lift party into a session object instead of letting `BattleState` copy or own the vector.
 
 ---
 
@@ -86,7 +183,9 @@ Fill a row in each day you finish a system.
 
 | System | Files | Owns | Depends on | Day built |
 | --- | --- | --- | --- | --- |
-| | | | | |
+| Smart pointers sandbox | `sandbox/day18/smart.cpp` | `vector<unique_ptr<Skill>>` | Day 14 skill hierarchy | 18 |
+| Shared_ptr cycle demo | `sandbox/day18/cycle.cpp` | `NodeA` → B via `shared_ptr`; B observes A via `weak_ptr` | — | 18 |
+| Turn order | `sandbox/day17/*` | `main` owns `vector<Actor> party` | `Actor`, `Stats` | 17 |
 
 ---
 
@@ -98,4 +197,6 @@ breaking an unwritten rule.
 - Textures are loaded once by `AssetManager` and never unloaded mid-state.
 - Update never draws; draw never mutates game state.
 - No system calls raylib input functions directly except `InputMap`.
-- _(add yours)_
+- `GameSession` owns the party; states only borrow (`Actor*` / `Actor&`). Battle must not own the party.
+- Owners hold `unique_ptr` or value; users take raw pointers, references, or IDs.
+- No `new`/`delete` in game code; no `shared_ptr` unless the ownership graph documents why.

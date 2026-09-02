@@ -521,17 +521,17 @@ sections 8-10.
 
 **Tasks**
 
-- [ ] Convert the `Skill` list to `std::vector<std::unique_ptr<Skill>>` properly, using
+- [x] Convert the `Skill` list to `std::vector<std::unique_ptr<Skill>>` properly, using
       `std::make_unique`
-- [ ] Try to copy a `unique_ptr`. Read the error. Then move it with `std::move` and watch
+- [x] Try to copy a `unique_ptr`. Read the error. Then move it with `std::move` and watch
       the source become null
-- [ ] Write a function taking `Skill*` (non-owning) and call it with `skill.get()`. Write
+- [x] Write a function taking `Skill*` (non-owning) and call it with `skill.get()`. Write
       the rule: **owners hold `unique_ptr`, users take raw pointers or references**
-- [ ] Build a case where `shared_ptr` seems right (two systems both needing an object
+- [x] Build a case where `shared_ptr` seems right (two systems both needing an object
       alive), then find a design where one clear owner works instead. Prefer the second
-- [ ] Create a `shared_ptr` cycle (A holds B, B holds A) and prove the leak with
+- [x] Create a `shared_ptr` cycle (A holds B, B holds A) and prove the leak with
       sanitizers. Fix it with `weak_ptr`
-- [ ] Draw the ownership graph for your future game in
+- [x] Draw the ownership graph for your future game in
       [../design/architecture.md](../design/architecture.md): who owns actors, skills,
       textures, the party, the map
 

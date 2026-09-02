@@ -113,3 +113,7 @@ Learned:  unordered_map for fast lookup, map when you need sorted keys; sort slo
 Broke: CMake wanted Ninja but build/ had old Makefiles; also wrote execute instead of Skill::execute and the IDE was right.
 Learned: Touching main.cpp only recompiled 1 file. Touching a shared header would recompile all of them. That's why #pragma once and lean 
 headers matter.
+
+## Day 18 - 9/2/2026
+Broke: unique_ptr would not copy into the vector without std::move; tried skill.Name() on a pointer instead of skill->Name(); shared_ptr cycle leaked 64 bytes until I used weak_ptr on the back-link.
+Learned: Owners hold unique_ptr, users borrow with .get() or references. GameSession will own the party — BattleState only uses it, never owns it, or the party dies when the battle ends. shared_ptr cycles leak silently; one clear owner is almost always the better design.
