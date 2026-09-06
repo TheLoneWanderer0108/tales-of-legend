@@ -117,3 +117,7 @@ headers matter.
 ## Day 18 - 9/2/2026
 Broke: unique_ptr would not copy into the vector without std::move; tried skill.Name() on a pointer instead of skill->Name(); shared_ptr cycle leaked 64 bytes until I used weak_ptr on the back-link.
 Learned: Owners hold unique_ptr, users borrow with .get() or references. GameSession will own the party — BattleState only uses it, never owns it, or the party dies when the battle ends. shared_ptr cycles leak silently; one clear owner is almost always the better design.
+
+## Day 19 - 9/6/2026
+Broke: Command vs int in switch; -1 inside optional; get_if<enumerator> instead of get_if<Type>; naming the get_if result effect shadowed the variant.
+Learned: Command replaced the worst magic numbers (menu 1–4). optional + if (auto n = …) beats sentinel -1. get_if gives a pointer — * / -> for the data. const marks “I won’t modify this.”

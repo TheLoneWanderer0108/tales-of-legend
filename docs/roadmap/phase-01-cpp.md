@@ -553,15 +553,15 @@ battle.)
 
 **Tasks**
 
-- [ ] Replace every magic integer and string with `enum class`: `Element`, `TargetType`,
+- [x] Replace every magic integer and string with `enum class`: `Element`, `TargetType`,
       `BattleResult`, `StatusEffect`, `Command`
-- [ ] `switch` over an `enum class` without a `default` and omit one case. See the
+- [x] `switch` over an `enum class` without a `default` and omit one case. See the
       `-Wswitch` warning. That warning is a free bug-finder every time you add an enum value
-- [ ] Return `std::optional<int>` from a function that parses a number from text and can
+- [x] Return `std::optional<int>` from a function that parses a number from text and can
       fail. Consume it with `if (auto n = Parse(s))`
-- [ ] Replace a "returns -1 on failure" function with `std::optional`. Note how the caller
+- [x] Replace a "returns -1 on failure" function with `std::optional`. Note how the caller
       can no longer forget to check
-- [ ] Use `std::variant` for something genuinely alternative, e.g. an item effect that is
+- [x] Use `std::variant` for something genuinely alternative, e.g. an item effect that is
       either a heal amount, a status cure, or a stat buff. Visit it with
       `std::visit` or `std::get_if`
 - [ ] Sweep your codebase for missing `const`: every read-only parameter and every
