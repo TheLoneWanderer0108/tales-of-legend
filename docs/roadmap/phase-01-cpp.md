@@ -564,7 +564,7 @@ battle.)
 - [x] Use `std::variant` for something genuinely alternative, e.g. an item effect that is
       either a heal amount, a status cure, or a stat buff. Visit it with
       `std::visit` or `std::get_if`
-- [ ] Sweep your codebase for missing `const`: every read-only parameter and every
+- [x] Sweep your codebase for missing `const`: every read-only parameter and every
       non-mutating member function
 
 **Deliverable:** no magic numbers, no sentinel error values, `-Wall -Wextra` clean.
@@ -585,20 +585,20 @@ battle.)
 
 **Tasks**
 
-- [ ] Rewrite three hand-written loops with algorithms: "is anyone alive"
+- [x] Rewrite three hand-written loops with algorithms: "is anyone alive"
       (`std::any_of`), "find lowest HP ally" (`std::min_element`), "total party HP"
       (`std::accumulate`)
-- [ ] Store a callback in `std::function<void(Actor&)>` and call it. Understand that this
+- [x] Store a callback in `std::function<void(Actor&)>` and call it. Understand that this
       is how your event and menu systems will work later
-- [ ] Demonstrate the capture-by-reference dangling trap: a lambda capturing a local by
+- [x] Demonstrate the capture-by-reference dangling trap: a lambda capturing a local by
       reference, stored and called after the local dies. Sanitizers will catch it
-- [ ] Write `assets/data/enemies.csv` by hand with 5 enemies:
+- [x] Write `assets/data/enemies.csv` by hand with 5 enemies:
       `name,maxHp,atk,def,spd,xp`
-- [ ] Write a loader: `std::vector<EnemyDef> LoadEnemies(const std::string& path)` using
+- [x] Write a loader: `std::vector<EnemyDef> LoadEnemies(const std::string& path)` using
       `ifstream` + `getline` + your Day 8 `Split`. Handle: missing file, blank lines,
       comment lines starting with `#`, wrong field count. Report errors with the line
       number - your future self will thank you
-- [ ] Write a saver that writes the file back out, and confirm a load-save round trip
+- [x] Write a saver that writes the file back out, and confirm a load-save round trip
       produces an identical file
 
 **Deliverable:** enemies come from a data file, not from code. Changing a stat needs no

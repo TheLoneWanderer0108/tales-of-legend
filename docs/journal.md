@@ -121,3 +121,7 @@ Learned: Owners hold unique_ptr, users borrow with .get() or references. GameSes
 ## Day 19 - 9/6/2026
 Broke: Command vs int in switch; -1 inside optional; get_if<enumerator> instead of get_if<Type>; naming the get_if result effect shadowed the variant.
 Learned: Command replaced the worst magic numbers (menu 1–4). optional + if (auto n = …) beats sentinel -1. get_if gives a pointer — * / -> for the data. const marks “I won’t modify this.”
+
+## day 20- 9/9/2026
+Broke: I kept treating every algorithm like std::sort, mixed up linenumber with the actual line text, and thought a stored lambda's locals died when the lambda "finished" instead of when the `{ }` around x ended.
+Learned: any_of / min_element / accumulate each have their own lambda contract; capture [&] on a stored callback is the same dangling as a pointer to a local. Tuning a goblin without recompiling felt like the stats finally lived outside the code — change the csv, run again, done. New monster with the same fields is a new row, not a new if.

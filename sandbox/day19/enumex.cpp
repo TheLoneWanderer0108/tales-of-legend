@@ -61,6 +61,7 @@ int main(){
     const Buff buff {5, 2};
 
     effect = 50;
+    
     effect = StatusEffects::poison;
     effect = buff;
 
