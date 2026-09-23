@@ -630,16 +630,16 @@ Research first, before Day 21:
 
 **Tasks**
 
-- [ ] Write the battle flow on paper as a list of phases:
+- [x] Write the battle flow on paper as a list of phases:
       `StartBattle -> RoundStart -> DecideTurnOrder -> ActorTurn (repeat) -> RoundEnd -> CheckEnd`
-- [ ] Define your types: `Stats`, `Actor`, `SkillDef`, `ItemDef`, `Battle`
-- [ ] Decide and write down: is turn order recomputed each round, or fixed at battle
+- [x] Define your types: `Stats`, `Actor`, `SkillDef`, `ItemDef`, `Battle`
+- [x] Decide and write down: is turn order recomputed each round, or fixed at battle
       start? (Recomputing supports SPD buffs, which you will want)
-- [ ] Load 3 heroes and 2 enemies from data files (`heroes.csv`, `enemies.csv`,
+- [x] Load 3 heroes and 2 enemies from data files (`heroes.csv`, `enemies.csv`,
       `skills.csv`)
-- [ ] Print the initial battle state clearly: both sides, HP bars made of `#` and `-`,
+- [x] Print the initial battle state clearly: both sides, HP bars made of `#` and `-`,
       FP, and any statuses
-- [ ] Write `BattleResult CheckEnd(const Battle&)` returning `Ongoing`, `Victory`, or
+- [x] Write `BattleResult CheckEnd(const Battle&)` returning `Ongoing`, `Victory`, or
       `Defeat`
 
 **Deliverable:** the battle sets up from data files and prints a readable board. No turns

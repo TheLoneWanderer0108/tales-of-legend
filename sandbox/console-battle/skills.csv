@@ -1,0 +1,5 @@
+3,fireball,2,fire,4,enemy
+2,heal,2,wind,5,ally
+1,swing,2,normal,0,enemy
+100,clob,1,normal,0,enemy
+101,swipe,2,normal,0,enemy

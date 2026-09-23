@@ -24,7 +24,11 @@ add_executable(day17
         sandbox/day17/text.cpp
 
 )
+add_executable(console-battle
+        sandbox/console-battle/main.cpp
+)
 target_compile_options(day17 PRIVATE -Wall -Wextra)
+target_compile_options(console-battle PRIVATE -Wall -Wextra)
 target_link_libraries(game PRIVATE raylib)
 target_compile_options(game PRIVATE -Wall -Wextra)
 
