@@ -651,15 +651,15 @@ yet.
 
 **Tasks**
 
-- [ ] Implement the round loop with turn order by SPD
-- [ ] Player turn: a menu (`Attack`, `Skill`, `Item`, `Defend`), target selection with
+- [x] Implement the round loop with turn order by SPD
+- [x] Player turn: a menu (`Attack`, `Skill`, `Item`, `Defend`), target selection with
       validation (cannot target the dead, cannot heal an enemy)
-- [ ] Enemy turn: pick a random living hero and attack (real AI comes tomorrow)
-- [ ] Damage with your Day 11 formula plus variance and a 5% critical hit chance
-- [ ] `Defend` halves incoming damage until the actor's next turn - which forces you to
+- [x] Enemy turn: pick a random living hero and attack (real AI comes tomorrow)
+- [x] Damage with your Day 11 formula plus variance and a 5% critical hit chance
+- [x] `Defend` halves incoming damage until the actor's next turn - which forces you to
       handle "state that expires", a concept you will reuse constantly
-- [ ] Print a combat log line for every action: who, what, to whom, for how much
-- [ ] Detect victory and defeat, print a summary, and offer a rematch
+- [x] Print a combat log line for every action: who, what, to whom, for how much
+- [x] Detect victory and defeat, print a summary, and offer a rematch
 
 **Deliverable:** a complete battle, start to finish, that you can win and lose.
 
@@ -673,11 +673,11 @@ will greet you again in Phase 5 - solving it now is worth an hour.
 
 **Tasks**
 
-- [ ] Inventory shared by the party (`unordered_map<std::string,int>`), items loaded from
+- [x] Inventory shared by the party (`unordered_map<std::string,int>`), items loaded from
       data: `Potion` (heal 20), `Ether` (restore 10 FP), `Antidote` (cure poison),
       `Bomb` (12 damage to all enemies)
-- [ ] Implement 2 skills with FP cost, one single-target, one all-targets
-- [ ] Implement `Poison` (damage at end of turn, 3 turns) and `AttackUp`
+- [x] Implement 2 skills with FP cost, one single-target, one all-targets
+- [] Implement `Poison` (damage at end of turn, 3 turns) and `AttackUp`
       (+50% ATK, 3 turns) via a small
       `struct ActiveStatus { StatusEffect kind; int turnsLeft; int magnitude; };`
       and a `std::vector<ActiveStatus>` on each actor

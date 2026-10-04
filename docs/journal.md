@@ -128,7 +128,7 @@ Learned: any_of / min_element / accumulate each have their own lambda contract; 
 
 ## Day 21 - 9/11/2026
 Broke: CMake flipped between Ninja and Makefiles on the same build/; looping a map with skills[i] inserted empty keys and printed a wall of 0s; CheckEnd returned victory/defeat on the first dead actor and I called it inside the board loop so "fight continues" printed five times.
-Learned: CSV is defs only — CurrentHp/Fp, statuses, defending are set in code; skills live in unordered_map keyed by id (fill the SkillDef then skills[e.ID] = e); actors go in Battle.actors as a vector with BattleId as identity; hero skills need Split on ',' then ';' on parts[7]; enum class needs SideToString to print; CheckEnd scans everyone for AlliesAlive/FoesAlive then decides once after the board.
+Learned: CSV is defs only — CurrentHp/Fp, statuses, defending are set in code; skills live in unordered_map keyed by id (fill the SkillDef then skills[e.ID] = e); actors go in Battle.actors as a vector with BattleId as identity; hero skills need Split on ',' then ';' on parts[7]; enum class needs SideToString to print; CheckEnd scans everyone for AlliesAlive/FoesAlive then decides once after the board.d
 
 ## Day 22 - 9/13/2026
 Broke: Turn order felt impossible until I mixed up the sticky-note list with the board — shadowed `order`, treated seats like actors, put `cin` inside the print loop, and for Defend I checked the attacker and cleared the flag on hit instead of the target lasting until their next turn.

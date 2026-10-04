@@ -27,15 +27,28 @@ enum class BattleResult{
 enum class Target{
     ally,
     enemy,
-    self
+    self,
+    allenemies,
 };
 enum class Status{
     poison,
-    burn
+    burn,
+    attackup,
 };
 enum class Side{
     ally,
     foe
+};
+enum class ItemEffect{
+    heal,
+    restorefp
+};
+
+//This is a struct for the items, it has a name, type, effect and value
+struct Item{
+    std::string name{};
+    ItemEffect effect{};
+    int value{0};
 };
 //This is the Stats struct
 struct Stats{
@@ -46,6 +59,10 @@ struct Stats{
     int Attack{0};
     int Defense{0};
     int Spd{0};
+};
+struct ActiveStatus{
+    Status status;
+    int duration;
 };
 //This is SkillDef, ID is used for checking with unordered and ordered maps
 //Remember to use enum::variable, since with class you have to be more specific
@@ -62,7 +79,7 @@ struct Actor{
     std::string name{};
     Stats stats;
     Side side{Side::ally}; //friend or foe
-    std::vector<Status> statuses;
+    std::vector<ActiveStatus> statuses;
     bool defending{false};
     std::vector<int> skillsIds;
 };
@@ -76,6 +93,22 @@ std::string SideToString(Side side){
     else{
         std::cerr << "Error detecting side";
         return "ally";
+    }
+}
+
+std::string StatusToString(Status status){
+    if(status == Status::poison){
+        return "poison";
+    }
+    else if(status == Status::burn){
+        return "burn";
+    }
+    else if(status == Status::attackup){
+        return "attackup";
+    }
+    else{
+        std::cerr << "Error detecting status";
+        return "none";
     }
 }
 std::string BattleResultToString(BattleResult& battleresult){
@@ -124,6 +157,9 @@ Target StringToTarget(std::string& target){
     else if(target == "self") {
         return Target::self;
     }
+    else if(target == "allenemies"){
+        return Target::allenemies;
+    }
     else{
         std::cerr << "Error target in enum does not exist, using default";
         return Target::enemy;
@@ -162,6 +198,57 @@ std::vector<std::string> Split(const std::string& line, char delimeter){
     return full;
 }
 
+ItemEffect StringToItemEffect(std::string& effect){
+    if(effect == "heal"){
+        return ItemEffect::heal;
+    }
+    else if(effect == "restorefp"){
+        return ItemEffect::restorefp;
+    }
+    else{
+        std::cerr << "Error effect in enum does not exist, using default";
+        return ItemEffect::heal;
+    }
+}
+
+
+
+std::unordered_map<std::string, Item> LoadItems(const std::string& path){
+    std::unordered_map<std::string, Item> items;
+
+    std::ifstream file(path);
+    int linenumber{0};
+
+    if(!file){
+        std::cerr<< "Error, could not open file";
+        return items;
+    }
+
+    std::string line;
+
+    while(std::getline(file, line)){
+        ++linenumber;
+        if(line.empty()){
+            continue;
+        }
+
+        auto parts = Split(line, ',');
+        if(parts.size() != 3){
+            std::cout << "error line number" <<linenumber;
+            continue;
+        }
+        else{
+            Item e;
+            e.name = parts[0];
+            e.effect = StringToItemEffect(parts[1]);
+            e.value = std::stoi(parts[2]);
+
+             items.insert({e.name, e});
+        }
+    }
+
+   return items;
+}
 std::vector<Actor> LoadActors(const std::string& path,Side side){
     std::vector<Actor> heroes;
 
@@ -252,6 +339,7 @@ std::unordered_map<int, SkillDef> loadedSkill(const std::string& path){
 
 struct Battle{
     std::vector<Actor> actors;
+    std::unordered_map<std::string, int> itemsCount;
 };
 
 void HpBar(int maxhp, int currenthp){
@@ -364,11 +452,32 @@ int Roll(int damage){
 }
 
 int ComputeDamage(const Actor& attacker, const Actor& defender){
+    for(const auto& status: attacker.statuses){
+        if(status.status == Status::attackup){
+           float extraDam = 1.5;
+           int Damage = extraDam * attacker.stats.Attack * attacker.stats.Attack / (attacker.stats.Attack + defender.stats.Defense);
+           return Roll(Damage);
+        }else{
+            continue;
+        }
+    }
     int Damage = attacker.stats.Attack * attacker.stats.Attack / (attacker.stats.Attack + defender.stats.Defense);
     return Roll(Damage);
 }
 
-
+int ComputeSkillDamage(const Actor& attacker, const Actor& defender, const SkillDef& skill){
+for (const auto& status : attacker.statuses) {
+        if (status.status == Status::attackup) {
+            float extraDam = 1.5;
+            int Damage = extraDam * skill.BasePow * attacker.stats.Attack / (attacker.stats.Attack + defender.stats.Defense);
+            return Roll(Damage);
+        } else {
+            continue;
+        }
+    }
+    int Damage = skill.BasePow * attacker.stats.Attack / (attacker.stats.Attack + defender.stats.Defense);
+    return Roll(Damage);
+}
 
 int main(){
 
@@ -378,6 +487,7 @@ int main(){
     std::unordered_map<int, SkillDef> skills = loadedSkill(Skillspath);
     std::vector<Actor> heroes = LoadActors(Heroespath, Side::ally);
     std::vector<Actor> villain = LoadActors(Villainpath, Side::foe);
+    std::unordered_map<std::string, Item> items = LoadItems("sandbox/console-battle/items.csv");
     /*for(const auto& heroe: heroes){
         std::cout << heroe.name << " " << SideToString(heroe.side) <<"\n";
         for(size_t i{0}; i<heroe.skillsIds.size(); i++){
@@ -400,6 +510,12 @@ int main(){
     }
     for(const auto& enemy: villain){
         battle.actors.push_back(enemy);
+    }
+    // this is for the items, we insert the items into the battle.items unordered map
+    // items.first is the key, items.second is the value, which is the entire struct
+    // we insert 3 of each item into the battle.itemsCount unordered map, which is a map of string and int
+     for(const auto& item: items){
+       battle.itemsCount.insert({item.first, 3});
     }
 
     int options{0};
@@ -424,8 +540,9 @@ int main(){
          }
          else{
              for(size_t i{0}; i<person.statuses.size(); i++){
-
+                    std::cout << StatusToString(person.statuses[i].status) << " (Duration: " << person.statuses[i].duration << ") ";
              }
+             std::cout << "\n";
          }
          if(person.stats.CurrentHp <= 0){
              continue;
@@ -481,10 +598,215 @@ int main(){
                      std::cout << person.name << " attacks " << "for " << damage << battle.actors[seat].name << "\n";
              }
              else if (options == 2){
-                 std::cout << "You Used a skill\n";
+                 int choice4 = 0;
+                 std::vector<int> skillIds = person.skillsIds;
+                 if(skillIds.empty()){
+                     std::cout << "No skills available" << "\n";
+                     options = 0;
+                 }else{
+                     do{
+                         std::cout << "Choose a skill: " << "\n";
+                         for(size_t i{0}; i<skillIds.size(); i++){
+                             std::cout << i + 1 << " : " << skills[skillIds[i]].Name << " (FP Cost: " << skills[skillIds[i]].FpCost << ")" << "\n";
+                         }
+                         std::cin >> choice4;
+                         if(std::cin.fail()) {
+                             std::cout << "just numbers" <<"\n";
+                             std::cin.clear();
+                             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                             choice4 = 0;
+                         }
+                     }while (choice4 < 1 || choice4 > skillIds.size());
+                     int skillId = skillIds[choice4 - 1];
+                     if(person.stats.CurrentFp < skills[skillId].FpCost){
+                         std::cout << "Not enough FP" << "\n";
+                         options = 0;
+                     }
+                     else if(skills[skillId].target == Target::allenemies){
+                         std::vector<int> targets;
+                         for(size_t i{0}; i<battle.actors.size(); i++){
+                             if(battle.actors[i].side == Side::foe && battle.actors[i].stats.CurrentHp > 0){
+                                 targets.push_back(i);
+                             }
+                         }
+                         if(targets.empty()){
+                             std::cout << "No enemies left to attack" << "\n";
+                             options = 0;
+                         }
+                         for(size_t j{0}; j<targets.size(); j++){
+                             int seat = targets[j];
+                             int damage = ComputeSkillDamage(person, battle.actors[seat], skills[skillId]);
+                             battle.actors[seat].stats.CurrentHp -= damage;
+                             if (battle.actors[seat].stats.CurrentHp <= 0) {
+                                 battle.actors[seat].stats.CurrentHp = 0;
+                             }
+                             std::cout << person.name << " used " << skills[skillId].Name
+                                       << " on " << battle.actors[seat].name
+                                       << " for " << damage << "\n";
+                         }
+                         if(!targets.empty()){
+                         person.stats.CurrentFp -= skills[skillId].FpCost;
+                         }
+                     }
+                     else if(skills[skillId].target == Target::enemy){
+                         std::vector<int> targets;
+                         for(size_t i{0}; i<battle.actors.size(); i++){
+                             if(battle.actors[i].side == Side::foe && battle.actors[i].stats.CurrentHp > 0){
+                                 targets.push_back(i);
+                             }
+                         }
+                         if(targets.empty()){
+                             std::cout << "No enemies left to attack" << "\n";
+                             options = 0;
+                         }else{
+                             int choice5 = 0;
+                             do{
+                                 std::cout <<"choose an enemy: " << "\n";
+                                 for(size_t j{0}; j < targets.size(); j++){
+                                     std::cout << j + 1 << " :" << battle.actors[targets[j]].name << "\n";
+                                 }
+                                 std::cin >> choice5;
+                                 if(std::cin.fail()) {
+                                     std::cout << "just numbers" <<"\n";
+                                     std::cin.clear();
+                                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                     choice5 = 0;
+                                 }
+                             }while(choice5 < 1 || choice5 > static_cast<int>(targets.size()));
+                             int seat = targets[choice5 - 1];
+                             int damage = ComputeSkillDamage(person, battle.actors[seat], skills[skillId]);
+                             battle.actors[seat].stats.CurrentHp -= damage;
+
+                             if (battle.actors[seat].stats.CurrentHp <= 0) {
+                                 battle.actors[seat].stats.CurrentHp = 0;
+                             }
+                             bool found = false;
+                             if(battle.actors[seat].stats.CurrentHp > 0){
+                                 for(size_t i{0}; i < battle.actors[seat].statuses.size(); i++){
+                                     if(battle.actors[seat].statuses[i].status == Status::poison){
+                                         battle.actors[seat].statuses[i].duration = 2;
+                                         std::cout << battle.actors[seat].name << " is already poisoned, duration reset to 2" << "\n";
+                                         found = true;
+                                         break;
+                                     }
+                                 }
+                                 if(!found){
+                                     battle.actors[seat].statuses.push_back({Status::poison, 2});
+                                 }
+                             }
+                             person.stats.CurrentFp -= skills[skillId].FpCost;
+                             std::cout << person.name << " used " << skills[skillId].Name
+                                       << " on " << battle.actors[seat].name
+                                       << " for " << damage << "\n";
+                         }
+                     }
+                     else{
+                         std::vector<int> allies;
+                            for(size_t i{0}; i<battle.actors.size(); i++){
+                                if(battle.actors[i].side == Side::ally && battle.actors[i].stats.CurrentHp > 0){
+                                    allies.push_back(i);
+                                }
+                            }
+                            if(allies.empty()){
+                                std::cout << "No allies left to support" << "\n";
+                                options = 0;
+                            }else{
+                                int choice6 = 0;
+                                do{
+                                    std::cout << "Choose an ally to support: " << "\n";
+                                    for(size_t j{0}; j < allies.size(); j++){
+                                        std::cout << j + 1 << " : " << battle.actors[allies[j]].name << "\n";
+                                    }
+                                    std::cin >> choice6;
+                                    if(std::cin.fail()) {
+                                        std::cout << "just numbers" <<"\n";
+                                        std::cin.clear();
+                                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                        choice6 = 0;
+                                    }
+                                }while(choice6 < 1 || choice6 > static_cast<int>(allies.size()));
+                                int seat = allies[choice6 - 1];
+                                int healAmount = skills[skillId].BasePow;
+                                battle.actors[seat].stats.CurrentHp += healAmount;
+                                if(battle.actors[seat].stats.CurrentHp > battle.actors[seat].stats.MaxHp){
+                                    battle.actors[seat].stats.CurrentHp = battle.actors[seat].stats.MaxHp;
+                                }
+                                bool found = false;
+                                if(battle.actors[seat].stats.CurrentHp > 0){
+                                    for(size_t i{0}; i < battle.actors[seat].statuses.size(); i++){
+                                        if(battle.actors[seat].statuses[i].status == Status::attackup){
+                                            battle.actors[seat].statuses[i].duration = 2;
+                                            std::cout << battle.actors[seat].name << " already has attack up, duration reset to 2" << "\n";
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if(!found){
+                                    battle.actors[seat].statuses.push_back({Status::attackup, 2});
+                                }
+                                person.stats.CurrentFp -= skills[skillId].FpCost;
+                                std::cout << person.name << " used " << skills[skillId].Name
+                                          << " on " << battle.actors[seat].name
+                                          << " and healed for " << healAmount << "\n";
+                            }
+                     }
+                 }
              }
              else if (options == 3){
-                 std::cout << "You used an item\n";
+                 int choice3 = 0;
+                 std::vector<std::string> itemNames;
+
+                    for(const auto& item: battle.itemsCount){
+                        if(item.second > 0){
+                            itemNames.push_back(item.first);
+                        }
+                        else{
+                            continue;
+                        }
+                    }
+                    if(itemNames.empty()){
+                        std::cout << "No items left" << "\n";
+                        options = 0;
+                    }else{
+                 do{
+                     std::cout << "Choose an item: " << "\n";
+                     int index = 1;
+                     for(const auto& item: itemNames){
+                         std::cout << index << " : " << battle.itemsCount[item]<< item <<"\n";
+                         index++;
+                     }
+                     std::cin >> choice3;
+                     if(std::cin.fail()) {
+                         std::cout << "just numbers" <<"\n";
+                         std::cin.clear();
+                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                         choice3 = 0;
+                     }
+             }while(choice3 < 1 || choice3 > itemNames.size());
+                std::string itemName = itemNames[choice3 - 1];
+                if(battle.itemsCount[itemName] <= 0){
+                    std::cout << "No more " << itemName << " left" << "\n";
+                    options = 0;
+                }
+                else{
+                    battle.itemsCount[itemName]--;
+                    if(items[itemName].effect == ItemEffect::heal){
+                        person.stats.CurrentHp += items[itemName].value;
+                        if(person.stats.CurrentHp > person.stats.MaxHp){
+                            person.stats.CurrentHp = person.stats.MaxHp;
+                        }
+                        std::cout << person.name << " used " << itemName << " and healed for " << items[itemName].value << "\n";
+                    }
+                    else if(items[itemName].effect == ItemEffect::restorefp){
+                        person.stats.CurrentFp += items[itemName].value;
+                        if(person.stats.CurrentFp > person.stats.Maxfp){
+                            person.stats.CurrentFp = person.stats.Maxfp;
+                        }
+                        std::cout << person.name << " used " << itemName << " and restored FP for " << items[itemName].value << "\n";
+                    }
+                }
+             }
              }
              else if (options == 4){
                  person.defending = true;
@@ -503,30 +825,86 @@ int main(){
                         targets.push_back(i);
                     }
                 }
-                std::random_device rd;
-                std::mt19937 gen(rd());
                 if(targets.empty()){
                     continue;
                 }
-                std::uniform_int_distribution<int> dist(0, targets.size() - 1);
-                int seat = targets[dist(gen)];
-                int damage = ComputeDamage(person, battle.actors[seat]);
-                if(battle.actors[seat].defending){
-                    damage /= 2;
-         }
-                battle.actors[seat].stats.CurrentHp -= damage;
-                if (battle.actors[seat].stats.CurrentHp <= 0) {
+                auto lowesthp = std::min_element(targets.begin(), targets.end(), [&battle](int a, int b){
+                    return battle.actors[a].stats.CurrentHp < battle.actors[b].stats.CurrentHp;
+                });
 
-                    battle.actors[seat].stats.CurrentHp = 0;
+
+
+                std::random_device rd;
+                std::mt19937 gen(rd());
+
+                std::uniform_int_distribution<int> distAction(1, 100);
+                int roll = distAction(gen);
+
+                if (roll <= 60){
+                    if(lowesthp != targets.end()){
+                        int seat = *lowesthp;
+                        int damage = ComputeDamage(person, battle.actors[seat]);
+                        if(battle.actors[seat].defending){
+                            damage /= 2;
+                        }
+                        battle.actors[seat].stats.CurrentHp -= damage;
+                        if (battle.actors[seat].stats.CurrentHp <= 0) {
+                            battle.actors[seat].stats.CurrentHp = 0;
+                        }
+                        std::cout << person.name << " attacks " << battle.actors[seat].name << " for " << damage << "\n";
+                    }
                 }
-                std::cout << person.name << " attacks " << battle.actors[seat].name << " for " << damage << "\n";
+                    else if(roll <= 85){
+                        std::cout << person.name << " Uses a skill" << "\n";
+                    }
+                    else{
+                        std::uniform_int_distribution<int> dist(0, targets.size() - 1);
+                        int randomIndex = dist(gen);
+                        int seat = targets[randomIndex];
+                        int damage = ComputeDamage(person, battle.actors[seat]);
+                        if(battle.actors[seat].defending){
+                            damage /= 2;
+                        }
+                        battle.actors[seat].stats.CurrentHp -= damage;
+                        if (battle.actors[seat].stats.CurrentHp <= 0) {
+                            battle.actors[seat].stats.CurrentHp = 0;
+                        }
+                        std::cout << person.name << " attacks " << battle.actors[seat].name << " for " << damage << "\n";
+                    }
          }
           std::cout << "\n" <<"\n";
+        }
+        }
+        for(auto& actor: battle.actors){
+            for(size_t i{0}; i < actor.statuses.size(); i++){
+                if(actor.statuses[i].status == Status::attackup){
+                    std::cout << actor.name << "'s attack is boosted" << "\n";
+                }
+                else if(actor.statuses[i].status == Status::poison){
+                    actor.stats.CurrentHp -= 5;
+                    std::cout << actor.name << " is poisoned and takes 5 damage" << "\n";
+                    if(actor.stats.CurrentHp <= 0){
+                        actor.stats.CurrentHp = 0;
+                    }
+                }
+                else if(actor.statuses[i].status == Status::burn){
+                    actor.stats.CurrentHp -= 5;
+                    std::cout << actor.name << " is burned and takes 5 damage" << "\n";
+                    if(actor.stats.CurrentHp <= 0){
+                        actor.stats.CurrentHp = 0;
+                    }
+                }
+                actor.statuses[i].duration--;
+                if(actor.statuses[i].duration <= 0){
+                    std::cout << actor.name << " is no longer " << StatusToString(actor.statuses[i].status) << "\n";
+                    actor.statuses.erase(actor.statuses.begin() + i);
+                    i--;
+                }
+            }
         }
     round++;
     auto status = CheckEnd(battle);
     std::cout << BattleResultToString(status) << "\n";
-        }
     }
     return 0;
 }
