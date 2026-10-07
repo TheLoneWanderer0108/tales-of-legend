@@ -1,7 +1,8 @@
 # Roadmap trim report
 
-Branch: `trim-roadmap`. Only `phase-04` to `phase-07` were edited, plus this file. All line
-numbers refer to the trimmed files on this branch.
+Branch: `trim-roadmap`. `phase-04` to `phase-08` were trimmed, `README.md` was reframed as an
+engine showcase, and this file was added. All line numbers refer to the trimmed files on this
+branch.
 
 ## Day counts
 
@@ -13,19 +14,21 @@ numbers refer to the trimmed files on this branch.
 | Phase 05 | 24 | 18 |
 | Phase 06 | 22 | 7 |
 | Phase 07 | 33 | 3 (2 kept + Day 120b) |
-| **Through Phase 07** | **156** | **99** |
-| Phase 08 (untouched, see below) | 20 | 20 |
+| Phase 08 | 20 | 16 |
+| **Total** | **176** | **115** |
 
-## Scope questions for you
+"Total" counts the six interlude days. Without them it is 170 and 109, which matches how the
+README counted.
 
-1. **Phase 00 and Phase 08 were not in the brief.** The repo has `phase-00-setup.md`
-   (Days 1-3) and `phase-08-ship.md` (Days 151-170). I left both unchanged. Phase 08 assumes
-   three chapters, real art for all of them, and many cut systems; its conflicts are listed
-   in the last section.
-2. **`README.md` was not edited.** It still says "A 170-day, day-by-day plan", and its phase
-   table and progress tracker list the original ranges and cut blocks (e.g. "Chapter 1 |
-   126-133", "Menus and save | 106-117", "NPCs and dialogue | 54-63").
-3. **A second copy exists** at `~/Projects/sandbox/research/roadmap/` (not a git repo, Phase 01
+## Scope notes
+
+1. **Phase 00 was not in the brief** and is unchanged.
+2. **Phase 08 was trimmed in a second pass** (see the last section). The keep/cut choice
+   there was mine, not from the original brief.
+3. **`README.md` was reframed** as an engine plus demo JRPG: intro, day counts, phase table
+   and progress tracker. The rules, the day template, the repository layout and the
+   reference shelf are unchanged.
+4. **A second copy exists** at `~/Projects/sandbox/research/roadmap/` (not a git repo, Phase 01
    boxes unchecked). I ignored it.
 
 ## Structural decisions I made (easy to revert)
@@ -216,7 +219,7 @@ numbers refer to the trimmed files on this branch.
   → Day 62, cut. No dialogue hot reload exists to extend.
 - **Day 120**, line 65: "Hot reload textures and sounds, so replacing art in Phase 8 needs no
   restart"
-  → Phase 08, not covered by the brief.
+  → still valid: the Phase 08 art pass (Days 152-155) was kept.
 - **Day 120**, lines 68-69: "set party level, start any encounter, trigger any cutscene"
   → party level: Day 101; cutscenes: Day 63. Cut.
 
@@ -298,27 +301,61 @@ numbers refer to the trimmed files on this branch.
 
 ---
 
-## Phase 08 (unchanged, not covered by the brief)
+## Phase 08
 
-- Intro, line 7: "At Day 150 you have a playable game" → Day 150, cut.
-- **Day 152**: "Draw the tilesets for all three chapters' environments" → chapters.
-- **Day 153**: "Draw the player and party members" → Day 100 (party), cut.
-- **Day 155**: "level-up rays" → Day 101.
-- **Day 156**: "three chapter overworld themes, a town theme, a dungeon / theme" → chapters.
-- **Day 157**: "level-up spectacle, chest-opening sparkle" → Days 101, 65; "a subtle drift
-  in cutscenes" → Day 63.
-- **Day 159**: "pool / particles and damage numbers" and "every particle effect / firing at
-  once" → Day 93 (particle system).
-- **Day 160**: "a full inventory, zero gold, max level" → Days 99, 101.
-- **Day 161**: "Verify everything promised on Day 111 works throughout the finished game" →
-  Day 111; "add the large-font option to every screen" → Day 111; "since mash / commands
-  are a genuine accessibility barrier" → Day 84.
-- **Day 163**: "time per chapter" → chapters.
-- **Day 164**: "any chapter taking twice as long / as intended" → chapters.
-- **Day 165**: "Do a full balance pass with the batch simulator" → Days 94/124.
-- **Day 167**: "Confirm saves and config write to an appropriate per-user location" →
-  settings config, Day 111.
-- **Day 168**: "Write the description around your three pillars" → pillars were defined on
-  Day 121, cut.
-- **Day 169**: "every settings option, rebinding, every chapter, every boss" → Days 111, 112,
-  chapters.
+### Removed (my choice, revert freely)
+
+- **Day 158 - Shaders.** The day calls itself "optional but cheap".
+- **Day 161 - Accessibility.** It mostly verifies the Day 111 settings menu, which is cut.
+  The Day 82/87 command accessibility options still exist.
+- **Day 162 - Text and localisation readiness.** The demo has little text and no planned
+  translation.
+- **Day 165 - Playtesting, round two.** One round of external playtesting (163-164) is kept.
+
+Kept: 151, 152-155 (art pass), 156, 157, 159, 160, 163, 164, 166, 167, 168, 169, 170. The art
+pass is the biggest remaining non-engine block (4 days) and the first candidate if more needs
+to go.
+
+Exit checklist items deleted: "Every accessibility option works throughout the finished game"
+(Day 161) and "All strings are externalised and proofread" (Day 162).
+
+### Conflicts in kept days
+
+- **Day 152**, line 64: "Draw the tilesets for all three chapters' environments" → chapters
+  (126-150), cut. The demo has two areas.
+- **Day 153**, line 71: "Draw the player and party members: idle, walk in four directions,
+  and one action pose" → Day 100 (party), cut.
+- **Day 155**, line 87: "Draw effect sprites: hit sparks, slashes, magic effects, level-up
+  rays, status icons" → level-up: Day 101, cut.
+- **Day 156**, line 107: "Complete the music list: title, three chapter overworld themes, a
+  town theme, a dungeon" → chapters, cut.
+- **Day 157**, lines 138-139: "low-HP heartbeat and vignette, level-up spectacle,
+  chest-opening sparkle, footstep dust, / menu open and close animations, and text pop for
+  important words" → level-up: 101; chests: 65; text pop: Day 61 (text effects). All cut.
+- **Day 157**, line 144: "a subtle drift in cutscenes" → Day 63, cut.
+- **Day 159**, lines 174-176: "pool / particles and damage numbers" and "every particle
+  effect" → particle system: Day 93, cut.
+- **Day 160**, line 206: "a full inventory, zero gold, max level" → gold: 99; levels: 101.
+  Cut.
+- **Day 163**, line 238: "time per chapter" → chapters, cut.
+- **Day 164**, line 262: "any chapter taking twice as long" → chapters, cut.
+- **Day 166**, line 278: "Fix the round-two issues in priority order" → Day 165 (round two),
+  cut.
+- **Day 167**, line 315: "Confirm saves and config write to an appropriate per-user
+  location" → settings config: Day 111, cut. The Day 41 bindings config still exists.
+- **Day 168**, line 342: "Write the description around your three pillars" → pillars were
+  defined on Day 121, cut.
+- **Day 169**, line 365: "every settings option, rebinding, every chapter, every boss" →
+  Days 111, 112 and chapters, cut.
+
+### Conflicts in non-day text
+
+- Intro, line 3: "Twenty days to turn a complete game into a released one." → now 16 days.
+- Intro, line 7: "At Day 150 you have a playable game" → Day 150, cut. The demo is finished
+  on Day 120b.
+- Research notes, lines 17-18: `particles-and-vfx.md` and `shaders.md` → Days 93 and 158,
+  cut.
+- Line 156: "## Block B - Technical hardening (Days 158-162)" → only 159-160 remain.
+- Line 220: "## Block C - Testing and release (Days 163-170)" → 165 cut.
+- "After Day 170", line 438: "the proof that the 170 days worked" → the plan is now 109
+  numbered days.

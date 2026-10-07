@@ -1,19 +1,28 @@
 # Tales of Legend - Learning Roadmap
 
-A 170-day, day-by-day plan to learn C++ by building a JRPG with Paper Mario-style
-interactive battles, using [raylib 6.0](https://github.com/raysan5/raylib) as the
-window/rendering/audio/input layer and writing every game system yourself.
+A 109-day, day-by-day plan to learn C++ by building a custom JRPG engine, showcased by a small
+demo JRPG with Paper Mario-style interactive battles, using
+[raylib 6.0](https://github.com/raysan5/raylib) as the window/rendering/audio/input layer and
+writing every engine system yourself.
 
-Sized for **2-3 hours per day, about 5 days per week**. That is roughly 8-9 months of work days -
+**The engine is the product; the demo is the proof that it works.** The demo is deliberately
+small: two areas, a couple of enemies, one boss, one or two NPCs, and about 10 moves, built on
+Day 120b with no new engine systems.
+
+Sized for **2-3 hours per day, about 5 days per week**. That is roughly 5 months of work days -
 budget more calendar time than that, because some days will take two or three sittings and that is
 normal, not failure.
+
+Day numbers come from the original 170-day plan and were never renumbered, because days refer to
+each other. So there are gaps (Day 61 does not exist, Day 69b does). See
+[TRIM_REPORT.md](TRIM_REPORT.md) for what was cut and why.
 
 ---
 
 ## The rules
 
 These exist because the goal is not "a finished game as fast as possible". The goal is
-"a finished game **and** a programmer who can build the next one".
+"a finished engine and demo **and** a programmer who can build the next one".
 
 1. **Never copy code you cannot explain line by line.** This roadmap deliberately gives
    you function signatures, goals and constraints - not finished function bodies. If you
@@ -48,7 +57,7 @@ These exist because the goal is not "a finished game as fast as possible". The g
 
 ## How each day is written
 
-Every one of the 170 days follows the same shape, so you never open the file and wonder
+Every one of the 109 days follows the same shape, so you never open the file and wonder
 what to do:
 
 ```markdown
@@ -82,18 +91,18 @@ working" into "I understand it".
 
 ## Phases
 
-| Phase | Days | Title | You will have built |
-| --- | --- | --- | --- |
-| [00](phase-00-setup.md) | 1-3 | Setup and tooling | A compiling C++ project, git, a debugger you can drive |
-| [01](phase-01-cpp.md) | 4-24 | C++ fundamentals (console only) | A complete text-only turn-based battle |
-| [02](phase-02-raylib.md) | 25-36 | raylib fundamentals | A sprite moving in a room, colliding with walls |
-| [--](interlude-ship-something.md) | 36a-36f | **Interlude: ship something tiny** | A finished, released micro-game, and proof you can finish |
-| [03](phase-03-engine.md) | 37-53 | Engine architecture | State machine, assets, entities, tilemaps, camera |
-| [04](phase-04-overworld.md) | 54-71 | Overworld and dialogue | NPCs, branching dialogue, cutscenes, field encounters |
-| [05](phase-05-battle.md) | 72-95 | Battle system and action commands | The Paper Mario combat core |
-| [06](phase-06-systems.md) | 96-117 | RPG systems | Inventory, party, levelling, shops, menus, save/load |
-| [07](phase-07-content.md) | 118-150 | Content pipeline and chapters | Data-driven content, the actual game |
-| [08](phase-08-ship.md) | 151-170 | Polish and ship | Juice, real art, a downloadable build |
+| Phase | Days | Work days | Title | You will have built |
+| --- | --- | --- | --- | --- |
+| [00](phase-00-setup.md) | 1-3 | 3 | Setup and tooling | A compiling C++ project, git, a debugger you can drive |
+| [01](phase-01-cpp.md) | 4-24 | 21 | C++ fundamentals (console only) | A complete text-only turn-based battle |
+| [02](phase-02-raylib.md) | 25-36 | 12 | raylib fundamentals | A sprite moving in a room, colliding with walls |
+| [--](interlude-ship-something.md) | 36a-36f | 6 | **Interlude: ship something tiny** | A finished, released micro-game, and proof you can finish |
+| [03](phase-03-engine.md) | 37-53 | 17 | Engine architecture | State machine, assets, entities, tilemaps, camera |
+| [04](phase-04-overworld.md) | 54-71 | 12 | Overworld and dialogue | NPCs, branching dialogue, flags, field encounters, a minimal save |
+| [05](phase-05-battle.md) | 72-95 | 18 | Battle system and action commands | The Paper Mario combat core and one boss |
+| [06](phase-06-systems.md) | 96-117 | 7 | Items and saving | Items, versioned save/load, a title screen |
+| [07](phase-07-content.md) | 118-120b | 3 | Content pipeline and vertical slice | Validation, hot reload, the demo JRPG |
+| [08](phase-08-ship.md) | 151-170 | 16 | Polish and ship | Juice, real art, a downloadable demo |
 
 ---
 
@@ -113,18 +122,16 @@ Fill in the date when you finish each block. Nothing motivates like a filling ta
 | **Interlude: shipped a tiny game** | 36a-36f | |
 | Engine core | 37-45 | |
 | Tilemaps and camera | 46-53 | |
-| NPCs and dialogue | 54-63 | |
-| Cutscenes and encounters | 64-71 | |
+| NPCs and dialogue | 54-60 | |
+| Encounters and minimal save | 67-71 | |
 | Battle core | 72-81 | |
 | Action commands | 82-89 | |
-| Battle polish | 90-95 | |
-| Items and party | 96-105 | |
-| Menus and save | 106-117 | |
-| Data pipeline | 118-125 | |
-| Chapter 1 | 126-133 | |
-| Chapter 2 | 134-141 | |
-| Chapter 3 | 142-150 | |
-| Polish | 151-162 | |
+| Boss and consolidation | 91-95 | |
+| Items | 96-97 | |
+| Save and boot flow | 113-117 | |
+| Content pipeline | 119-120 | |
+| **Vertical slice: the demo** | 120b | |
+| Polish | 151-160 | |
 | Ship | 163-170 | |
 
 ---

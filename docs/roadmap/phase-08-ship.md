@@ -20,6 +20,8 @@ Research notes for this phase:
 [audio.md](../research/audio.md),
 [shipping.md](../research/shipping.md).
 
+Trimmed: Days 158, 161, 162, 165 removed.
+
 ---
 
 ## Block A - Art and audio (Days 151-157)
@@ -153,30 +155,6 @@ Four days replacing placeholders. Work in this order so the most visible things 
 
 ## Block B - Technical hardening (Days 158-162)
 
-### Day 158 - Shaders
-
-**Goal:** a small number of high-impact visual effects. This is optional but cheap.
-
-**Research first (30 min):** [shaders.md](../research/shaders.md) in full.
-
-**Tasks**
-
-- [ ] Learn the minimum GLSL you need: vertex and fragment stages, uniforms, and sampling a
-      texture. raylib's shader API is small; build one trivial shader first
-- [ ] Implement a white flash shader for hit feedback (better and cheaper than swapping sprites)
-- [ ] Implement a full-screen palette or colour-grade shader for area mood and flashbacks
-- [ ] Implement a dissolve or pixelate transition for battle entry
-- [ ] Optionally: water distortion, a heat wave, or a simple lighting shader for dungeons
-- [ ] Provide a no-shader fallback path, in case a player's driver misbehaves. A crash on
-      startup on someone else's machine is the worst possible bug
-- [ ] Measure the frame time cost of each shader and drop any that is not worth it
-
-**Deliverable:** three shader effects with a working fallback path.
-
-**Journal:** which shader gave the best ratio of impact to effort?
-
----
-
 ### Day 159 - Performance
 
 **Goal:** a stable frame rate, verified by measurement rather than by feeling.
@@ -239,59 +217,6 @@ manufacture.
 
 ---
 
-### Day 161 - Accessibility
-
-**Goal:** more people can actually play your game.
-
-**Tasks**
-
-- [ ] Verify everything promised on Day 111 works throughout the finished game: window width,
-      auto-succeed, shake toggle, flash reduction, text speed, battle speed
-- [ ] Check colour: every status, element, and UI state must be distinguishable without colour.
-      Test with a colour-blindness simulator and add shapes or letters where needed
-- [ ] Check contrast and text size at your internal resolution. Nothing critical under 8px, and
-      add the large-font option to every screen
-- [ ] Verify the game is fully playable one-handed on keyboard, and fully playable with a
-      gamepad alone. No mouse-only interactions anywhere
-- [ ] Remove or make optional anything that requires fast repeated input to progress, since mash
-      commands are a genuine accessibility barrier. An option to convert mashing into a hold is
-      the standard solution
-- [ ] Add a difficulty option if you can do it honestly: an easy mode adjusting enemy damage and
-      widening command windows costs almost nothing and doubles the number of people who finish
-- [ ] Check that no puzzle depends on audio cues alone, and no action command depends on visual
-      cues alone
-
-**Deliverable:** every accessibility option verified across the whole finished game.
-
-**Journal:** which accessibility fix also made the game better for everyone?
-
----
-
-### Day 162 - Text and localisation readiness
-
-**Goal:** all text in one place, so a translation is possible later even if you never do one.
-
-**Tasks**
-
-- [ ] Extract every user-facing string into data files. Grep for string literals in the UI code
-      and move them all
-- [ ] Build a string table keyed by ID, with a lookup function, and make missing keys loudly
-      visible (render `##MISSING:key##`)
-- [ ] Verify your text rendering handles long strings: German and Finnish translations run 30-40%
-      longer than English. If your boxes are sized to exact English strings, they will break
-- [ ] Confirm the font contains the glyphs you need, and that `LoadFontEx` receives the right
-      codepoint set for any accented characters
-- [ ] Proofread everything. Read the whole script out loud one more time - you will catch typos
-      you have read past twenty times
-- [ ] Run a spellcheck over the data files
-- [ ] Fix every text overflow, clipped line, and awkward wrap you find
-
-**Deliverable:** all strings externalised, proofread, and overflow-safe.
-
-**Journal:** how many typos survived until today?
-
----
-
 ## Block C - Testing and release (Days 163-170)
 
 ### Day 163 - External playtesting
@@ -341,28 +266,6 @@ manufacture.
 **Deliverable:** the top 15 issues fixed, with the rest triaged and recorded.
 
 **Journal:** what did you decide *not* to fix, and why was that the right call?
-
----
-
-### Day 165 - Playtesting, round two
-
-**Goal:** confirm the fixes worked and find the next layer.
-
-**Tasks**
-
-- [ ] Get a fresh set of testers if you can. Repeat testers cannot un-know the confusing parts
-- [ ] Focus testing on what you changed, and confirm the confusion is gone
-- [ ] Do a full balance pass with the batch simulator plus real data. Adjust the difficulty
-      curve so it rises smoothly rather than in steps
-- [ ] Time a full playthrough and compare it with your design doc target. If it is much shorter
-      than you hoped, that is fine - short and finished beats long and abandoned
-- [ ] Test the whole game on a different machine, ideally a slower one, and specifically test a
-      Windows build if you have access
-- [ ] Verify saves from the Day 163 build still load, exercising your migration path
-
-**Deliverable:** confirmation that round-one fixes worked, plus a final balance pass.
-
-**Journal:** did the confusing part stop being confusing?
 
 ---
 
@@ -512,8 +415,6 @@ manufacture.
 - [ ] 60 FPS in the worst case, verified by profiling with recorded numbers
 - [ ] A full playthrough is clean under sanitizers
 - [ ] Missing assets and corrupted saves are handled gracefully
-- [ ] Every accessibility option works throughout the finished game
-- [ ] All strings are externalised and proofread
 - [ ] 3-5 external testers played it and I watched at least one in silence
 - [ ] Feedback was triaged by impact and the top issues fixed
 - [ ] Feature freeze was declared and honoured
