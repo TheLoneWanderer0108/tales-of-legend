@@ -21,6 +21,8 @@ Research notes for this phase:
 [animation-and-tweening.md](../research/animation-and-tweening.md),
 [ui-systems.md](../research/ui-systems.md).
 
+Trimmed: Days 84, 85, 90, 92, 93, 94 removed.
+
 ---
 
 ## Block A - Battle core (Days 72-81)
@@ -467,66 +469,6 @@ prompt that appears too late for a human to react (under about 200ms of warning)
 
 ---
 
-### Day 84 - The mash command
-
-**Goal:** press rapidly, with a fair ceiling.
-
-**New concepts:** press counting, rate limiting, physical fairness, gauge feedback.
-
-**Tasks**
-
-- [ ] Implement `MashCommand`: count Confirm presses within a fixed duration (about 2s) and
-      map the count to a multiplier
-- [ ] Set a realistic ceiling. Humans manage roughly 6-9 presses per second, so a 2s window
-      caps around 14-18. The maximum reward must be reachable without hurting anyone's hand -
-      cap the *benefit*, not the presses
-- [ ] Cheat-proof it: ignore presses faster than about 25ms apart (autofire controllers), and
-      require alternating input for the harder variant
-- [ ] Feedback matters more here than anywhere: a filling gauge, a growing character
-      animation, escalating sound pitch, screen shake building. Mashing with weak feedback
-      feels like a chore; with strong feedback it is thrilling
-- [ ] Add threshold markers on the gauge so the player can see the next reward tier
-- [ ] Implement the alternating variant (Confirm and Cancel alternately) and note how
-      different it feels
-- [ ] Consider your players' hands: no more than one mash command per turn cycle, and never
-      three in a row. Write the rule in the design doc
-
-**Deliverable:** a mash command with a fair ceiling, cheat protection, and great feedback.
-
-**Journal:** what was your measured maximum press rate, and where did you set the cap?
-
----
-
-### Day 85 - Hold, release, and rotate
-
-**Goal:** two more input verbs, so commands stay varied.
-
-**New concepts:** hold duration measurement, overcharge, analogue stick angle tracking,
-keyboard fallbacks for analogue input.
-
-**Tasks**
-
-- [ ] Implement `HoldReleaseCommand`: hold Confirm to charge, release inside a target zone.
-      Overcharging past the zone must fail, so it is a real risk
-- [ ] Show the charge as a filling meter with a marked release zone, plus a rising audio pitch
-      that peaks at the zone - many players will do this entirely by ear
-- [ ] Implement `RotateCommand`: track the left stick angle, accumulate total rotation,
-      require N full turns. Handle the angle wraparound at 180 degrees correctly, and ignore
-      reversals so scrubbing back and forth does not count
-- [ ] Provide a keyboard fallback for rotation (alternating left/right arrows) and make sure
-      both paths are equally achievable. Never ship a command that only works on a gamepad
-- [ ] Implement `SequenceCommand`: a sequence of 3-5 directional or button prompts to hit in
-      order under time pressure, with per-input grading
-- [ ] Test every command on keyboard and gamepad. Anything that feels bad on one of them is
-      not finished
-- [ ] Add each to your harness and record the difficulty you actually achieve
-
-**Deliverable:** four command types working equally well on keyboard and gamepad.
-
-**Journal:** which command type was hardest to make feel good, and why?
-
----
-
 ### Day 86 - Defensive commands
 
 **Goal:** the player is never passive, even on the enemy's turn. This is the other half of
@@ -606,19 +548,6 @@ sections 8-10 (feel and fairness).
 - [ ] Implement FP (skill points): skills cost FP, FP restores partially after battle and
       fully at rest points. Tune so a normal battle uses roughly 30-50% of your FP, making
       dungeon-level attrition a real consideration
-- [ ] Implement badges: equippable modifiers with a shared capacity cost, so the player
-      builds a loadout rather than equipping everything. Examples: `+2 ATK`,
-      `Perfect grades restore 1 FP`, `Superguard window +30%`,
-      `First strike deals double damage`, `Poison on hit`, `Half FP costs, half damage`
-- [ ] Make at least three badges interact directly with action commands, so mastering the
-      timing unlocks build options
-- [ ] Implement star power: a meter that fills on `Great` and `Perfect` grades and on
-      successful superguards, spent on powerful moves with their own elaborate commands.
-      Skill directly funds spectacle - that is the loop you want
-- [ ] Build the badge equip UI with capacity display and conflict warnings
-- [ ] Balance-test three different builds against the same encounter and confirm all three
-      are viable but distinct. If one build dominates, the numbers are wrong
-- [ ] Record every badge and its numbers in the design doc
 
 **Deliverable:** an economy where the player's build and their execution both matter.
 
@@ -652,34 +581,6 @@ six lines, the turn may be too slow.
 
 ## Block C - Battle depth and polish (Days 90-95)
 
-### Day 90 - Enemy mechanics and counterplay
-
-**Goal:** enemies that demand different tactics, not just bigger numbers.
-
-**New concepts:** attack typing, mechanical counterplay, encounter composition.
-
-**Tasks**
-
-- [ ] Implement attack *types* as data: `Ground`, `Aerial`, `Ranged`, `Magic`, and give
-      enemies properties that interact with them - flying enemies immune to ground attacks,
-      spiked enemies that damage jump attackers, armoured enemies needing defence-piercing
-      or armour-break, shielded enemies whose shield must be removed first
-- [ ] Add a scan/tattle action that reveals HP, weaknesses, and a description. Make it fun to
-      read; in Paper Mario the tattle is a beloved feature, not a chore
-- [ ] Build eight enemies whose mechanics each demand a specific answer, and write the answer
-      in the design doc so you can verify the player has access to it when they meet it
-- [ ] Compose encounters that force switching: a flyer plus a spiked ground enemy cannot be
-      handled with one move type
-- [ ] Add enemy behaviour that reacts to the player: enemies that flee at low HP, call
-      reinforcements, or enrage when their ally dies
-- [ ] Test each enemy alone to confirm its mechanic is legible without explanation
-
-**Deliverable:** eight mechanically distinct enemies, each with a documented counter.
-
-**Journal:** which enemy taught the player something? That is the one to imitate.
-
----
-
 ### Day 91 - The boss fight
 
 **Goal:** a multi-phase fight that examines everything the player has learned.
@@ -708,90 +609,6 @@ sections 5-6 (boss design).
 **Deliverable:** a boss fight you are proud of, beatable in 3-5 minutes.
 
 **Journal:** what made the phase transitions feel dramatic rather than arbitrary?
-
----
-
-### Day 92 - Battle UI polish
-
-**Goal:** the player always knows what is happening and what is coming.
-
-**Tasks**
-
-- [ ] Add a turn order indicator showing the next 4-6 turns, updating live when SPD changes
-- [ ] Add status icon tooltips (hold a key to inspect) and an enemy inspect view
-- [ ] Add a combat log (toggle with Tab) listing the last 10 actions with amounts, invaluable
-      for both players and your own debugging
-- [ ] Add a battle speed setting (1x, 1.5x, 2x) that scales animations but **not** action
-      command windows. Verify that carefully - it is a subtle bug waiting to happen
-- [ ] Add a "skip animations" option for repeat encounters
-- [ ] Ensure everything is readable at your internal resolution: no text under 8px, adequate
-      contrast, no critical information conveyed by colour alone
-- [ ] Test the whole battle UI with only a gamepad, then with only a keyboard
-
-**Deliverable:** a battle UI that answers every question the player might have.
-
-**Journal:** what did the combat log reveal about your own systems?
-
----
-
-### Day 93 - Audio and visual effects
-
-**Goal:** impact. The difference between a prototype and a game.
-
-**Research first (20 min):**
-[particles-and-vfx.md](../research/particles-and-vfx.md) sections 1-4.
-
-**Tasks**
-
-- [ ] Build a small particle system: emitters with count, lifetime, velocity spread, gravity,
-      colour ramp, and size curve. Keep it under 150 lines and pool the particles
-- [ ] Add effects for: hit sparks, critical bursts, healing sparkles, level-up rays, status
-      application puffs, dust on landing
-- [ ] Add screen effects: a white flash on criticals, a red vignette at low HP, a radial blur
-      or zoom punch on big hits
-- [ ] Build the sound layer properly: distinct sounds per grade, per element, per status, per
-      menu action, plus enemy-specific hit sounds. Randomise pitch on everything repetitive
-- [ ] Add battle music with an intro flourish, plus separate boss music, and a low-HP tension
-      layer if you are feeling ambitious
-- [ ] Mix the audio: set relative volumes so nothing drowns out the action command cues. The
-      command cues are gameplay-critical and must sit on top
-- [ ] Compare a recording of today's battle with one from Day 81. The gap is your entire
-      motivation for polish work
-
-**Deliverable:** a battle that sounds and feels like a real game.
-
-**Journal:** watch the Day 81 and Day 93 recordings back to back. Write what changed.
-
----
-
-### Day 94 - Balance harness
-
-**Goal:** balance with data instead of vibes.
-
-**Research first (20 min):** [rpg-math-and-balance.md](../research/rpg-math-and-balance.md)
-sections 8-10.
-
-**Tasks**
-
-- [ ] Build a headless simulation mode: run a battle with no rendering, with scripted AI on
-      both sides and a configurable action command success profile (`bad` 20% success,
-      `average` 60%, `expert` 95%)
-- [ ] Run 1000 battles per encounter per profile and report win rate, average rounds, average
-      HP remaining, and average FP spent
-- [ ] Set targets and tune to them: a normal encounter should be about 95% win rate for an
-      average player in 3-5 rounds; a boss about 60-75% on the first attempt
-- [ ] Check that skill matters: an expert profile should clear a fight in noticeably fewer
-      rounds than a bad one. If skill does not move the numbers, your multipliers are too
-      timid and the action commands are decorative
-- [ ] Find the degenerate strategies: is one skill always optimal? Is an item spam loop
-      unbeatable? The simulator finds these far faster than playtesting
-- [ ] Export results to CSV and look at them in a spreadsheet, plotting damage against level
-      to check your curves
-- [ ] Write the target numbers into the design doc so future encounters have a standard
-
-**Deliverable:** a simulator, a CSV of results, and encounters tuned to written targets.
-
-**Journal:** which encounter was most out of balance, and by how much?
 
 ---
 
@@ -833,5 +650,4 @@ sections 8-10.
 - [ ] Accessibility options for window width and auto-succeed work everywhere
 - [ ] FP, badges, and star power make builds meaningfully different
 - [ ] A boss with three phases and a gimmick is beatable in 3-5 minutes
-- [ ] The simulator confirms that skill changes outcomes measurably
 

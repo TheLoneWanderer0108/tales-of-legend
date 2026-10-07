@@ -18,6 +18,8 @@ Research notes for this phase:
 [data-driven-design.md](../research/data-driven-design.md),
 [jrpg-game-design.md](../research/jrpg-game-design.md).
 
+Trimmed: Days 61, 62, 63, 64, 65, 66, 70 removed.
+
 ---
 
 ## Block A - NPCs and dialogue (Days 54-62)
@@ -250,183 +252,7 @@ all authored in the script file.
 
 ---
 
-### Day 61 - Text effects
-
-**Goal:** make the text itself expressive. This is a Paper Mario signature and it is cheap.
-
-**New concepts:** inline markup, per-character rendering state, per-character transforms,
-parsing tags out of display text.
-
-**Tasks**
-
-- [ ] Support inline tags: `[red]`, `[/red]`, `[shake]`, `[wave]`, `[slow]`, `[fast]`,
-      `[pause=0.4]`, `[big]`
-- [ ] Critical detail: strip tags before measuring and wrapping, so markup never affects
-      layout. Store per-character style in a parallel array instead
-- [ ] Render character by character, applying colour, a vertical sine wave offset, a random
-      jitter, and scale per character
-- [ ] Implement `[pause=x]` inside the typewriter, and speed changes mid-sentence. A pause
-      before a punchline is worth more than any animation
-- [ ] Auto-pause slightly at commas and full stops. It reads dramatically better for one
-      line of code
-- [ ] Write a test scene exercising every tag, and keep it as a regression check you can
-      jump to with your debug node command
-
-**Deliverable:** dialogue with shaking, waving, coloured, and dramatically paced text.
-
-**Journal:** which effect gave the biggest personality boost?
-
----
-
-### Day 62 - Dialogue polish and validation
-
-**Goal:** make the system trustworthy so you can write content fast in Phase 7.
-
-**New concepts:** authoring tools, validation passes, content linting, hot reload.
-
-**Tasks**
-
-- [ ] Write a validator run at startup (and on demand): unreachable nodes, jumps to missing
-      nodes, unknown flags read but never written, unknown items, unknown sounds, lines that
-      exceed the box even after wrapping
-- [ ] Add hot reload: press F6 to reparse all scripts without restarting. Iterating on
-      dialogue at 2 seconds per edit instead of 20 changes how much you write
-- [ ] Add a "log mode" that dumps every scene to a text file, so you can read your whole
-      script as prose and catch bad writing
-- [ ] Add a skip-all-text mode for fast playtesting (hold Cancel)
-- [ ] Write the town's real conversations: 4 NPCs, 3 with conditional variants, one with a
-      choice, one shopkeeper stub. Roughly 40 lines of dialogue
-- [ ] Play the whole town and fix everything that feels slow, wordy, or unclear
-- [ ] Commit: `day 62: dialogue system complete`
-
-**Deliverable:** a validated, hot-reloadable dialogue system and a town that talks.
-
-**Journal:** how long does it now take you to add a new conversation? (If it is over five
-minutes, fix the tooling, not the content.)
-
----
-
 ## Block B - Cutscenes, world interaction, encounters (Days 63-71)
-
-### Day 63 - The cutscene system
-
-**Goal:** scripted sequences where the game plays itself.
-
-**New concepts:** command queues, coroutine-like sequencing without coroutines, blocking vs
-parallel actions, taking control from the player.
-
-**Research first (25 min):** [state-machines.md](../research/state-machines.md) sections 6-8
-(hierarchical states and sequencing).
-
-**Tasks**
-
-- [ ] Write `class Cutscene` holding a queue of `Action` objects, each with
-      `Start()`, `Update(dt)`, `bool Finished()`. This is Day 50's `Sequence` grown up
-- [ ] Implement actions: `MoveEntityTo(id, tile, speed)`, `Wait(seconds)`,
-      `PlayAnimation(id, name)`, `FaceEntity(id, dir)`, `PanCamera(target, duration)`,
-      `RunDialogue(nodeId)`, `SetFlag`, `FadeScreen(colour, duration)`,
-      `PlaySound`, `SpawnEntity`, `DespawnEntity`
-- [ ] Support parallel groups: two NPCs walking simultaneously, then both waiting for each
-      other before the next action
-- [ ] Push a `CutsceneState` that suppresses player input but still draws and updates the
-      field
-- [ ] Extend the dialogue script format so a cutscene can be authored in the same file - one
-      authoring language for the whole game is a large ergonomic win
-- [ ] Add a skip button (hold Cancel for 1 second) that runs every action's end state
-      immediately. Implement this *now*; a cutscene you cannot skip is a cutscene you will
-      stop testing
-- [ ] Author a real 20-second opening cutscene for the town
-
-**Deliverable:** a skippable opening cutscene with movement, camera work, and dialogue.
-
-**Journal:** what was hardest about sequencing?
-
----
-
-### Day 64 - Triggers
-
-**Goal:** the world reacts to where the player is and what they have done.
-
-**New concepts:** trigger volumes, one-shot events, trigger conditions, re-entrancy.
-
-**Tasks**
-
-- [ ] Add trigger objects in Tiled with properties: `cutsceneId` or `dialogueId`,
-      `once` (bool), `requiresFlag`, `setsFlag`
-- [ ] Fire on player overlap, and only once per entry (track the entered state so standing
-      still does not retrigger every frame)
-- [ ] Implement `once` triggers via flags, so they stay consumed after saving and loading
-- [ ] Add on-map-enter triggers, so entering a map can start a scene
-- [ ] Add the classic edge case: a trigger that starts a cutscene which moves the player
-      *through* another trigger. Decide the rule (triggers disabled during cutscenes) and
-      enforce it
-- [ ] Visualise all triggers and their conditions in the debug overlay
-- [ ] Author two: an entry cutscene, and a warning that fires once when approaching the
-      dungeon
-
-**Deliverable:** triggers that fire exactly once, survive reloading, and never fire during
-cutscenes.
-
-**Journal:** the re-entrancy problem and your rule for it.
-
----
-
-### Day 65 - Interactive objects
-
-**Goal:** a world you can act on, not just walk through.
-
-**New concepts:** entity behaviours as data, persistent object state, keys and locks,
-switches, per-object flags.
-
-**Tasks**
-
-- [ ] Chests: an open animation, an item reward, a per-chest flag so it stays open forever,
-      an "already empty" message
-- [ ] Locked doors requiring a key item, with distinct messages for having and lacking the
-      key
-- [ ] Signs and readable objects (reuse dialogue directly - no new system)
-- [ ] Switches and pressure plates that set flags, and doors that open when a flag set is
-      satisfied
-- [ ] A pushable block with tile-aligned movement and collision checks against tiles,
-      entities and map bounds
-- [ ] Breakable pots that drop coins with a small particle burst
-- [ ] Verify all object states persist across a map transition and back
-
-**Deliverable:** a small puzzle room: push a block onto a plate, open a door, find a key,
-unlock a chest.
-
-**Journal:** which object needed the most special-casing, and could it have been data
-instead?
-
----
-
-### Day 66 - Quests and world progression
-
-**Goal:** the player knows what they are doing and the game knows how far along they are.
-
-**New concepts:** quest state as derived data, progression gating, journals, soft locks.
-
-**Tasks**
-
-- [ ] Model quests on top of flags rather than as a parallel system:
-      `struct QuestDef { std::string id, title; std::vector<QuestStep> steps; };`
-      where each step has a description and a completion condition over flags
-- [ ] Load quests from a data file
-- [ ] Write `QuestState CurrentStep(const QuestDef&, const GameFlags&)` so quest progress is
-      always *derived* and can never desynchronise from the world
-- [ ] Build a minimal journal UI (a pushed state): active quests, the current step, and
-      completed quests
-- [ ] Add a main-quest gate: the dungeon entrance is blocked until a flag is set
-- [ ] Hunt for soft locks: is there any way to make the game unwinnable? Sell a key item,
-      trigger scenes out of order, leave a required area? Write down each risk and how you
-      prevent it
-- [ ] Author one main quest with three steps and one side quest
-
-**Deliverable:** a journal that always reflects reality, and one gated main quest.
-
-**Journal:** why derive quest state from flags instead of storing it?
-
----
 
 ### Day 67 - Field enemies
 
@@ -517,31 +343,43 @@ leaks.
 
 ---
 
-### Day 70 - Field abilities
+### Day 69b - Minimal save [ADDED]
 
-**Goal:** Paper Mario's other signature - battle moves that are also world tools.
+**Goal:** quit the game, relaunch, and be exactly where you were - with the smallest save that
+can do it.
 
-**New concepts:** shared abilities across contexts, ability gating for progression,
-context-sensitive input.
+**New concepts:** serialisation, save scope, a version field, loading by rebuilding rather than
+patching, round-trip testing.
+
+**Research first (20 min):** [save-systems.md](../research/save-systems.md) sections 1-5.
 
 **Tasks**
 
-- [ ] Implement two field abilities usable with the same buttons as in battle: a jump
-      (hit switches above, cross small gaps, stun flying enemies) and a hammer swing (break
-      rocks, hit ground switches, stun ground enemies)
-- [ ] Implement a third that gates progression, unlocked in chapter 2: e.g. a spin dash
-      through cracked walls
-- [ ] Make abilities data-driven and flag-gated so a chapter can unlock one
-- [ ] Design one puzzle per ability, and one requiring two in combination
-- [ ] Handle animation and input properly: no movement mid-swing, an ability cooldown, no
-      queued spam
-- [ ] Write down which abilities exist in both contexts and confirm they share their
-      implementation where sensible. This shared vocabulary is what makes Paper Mario's
-      world feel coherent
+- [ ] Save exactly four things and nothing else: every flag in `GameFlags`, the current map ID
+      and player position, each party member's current HP, and the inventory as item ID and
+      count pairs
+- [ ] Write it as JSON with a `version` field at the top, using a small writer next to your
+      Day 44 parser. Version 1 costs nothing now and is impossible to add retroactively
+- [ ] Serialise by ID, never by index: map IDs and item IDs, not positions in a list
+- [ ] Implement `bool SaveGame(const std::string& path)` and `bool LoadGame(const std::string& path)`
+      on the persistent session, with one slot and a debug key for each (F10 to save,
+      Shift+F10 to load)
+- [ ] Load by rebuilding, not patching: go through Day 52's map transition path to the saved
+      map, place the player, then confirm flag-driven dialogue reflects the loaded flags
+- [ ] Replace the Day 69 game over stub: Continue now loads this save
+- [ ] Test the round trip after a real restart: set flags, take damage, pick up an item, walk
+      to another map, save, quit the process entirely, relaunch, load, and check every value
+- [ ] Write down in [../design/architecture.md](../design/architecture.md) the rule from here
+      on: every new system that owns persistent state adds its fields to the save on the day
+      it is built
 
-**Deliverable:** two working field abilities, three puzzles, one progression gate.
+**Deliverable:** one save slot that restores flags, map, position, party HP, and inventory
+across a full process restart.
 
-**Journal:** how does sharing abilities between field and battle change your design?
+**Stuck?** Save only the flags first and get that round trip working after a real restart
+before adding anything else.
+
+**Journal:** which value was correct in memory but missing after the restart?
 
 ---
 
@@ -569,14 +407,8 @@ context-sensitive input.
 
 ## Phase 04 exit checklist
 
-- [ ] I can author a new conversation in under five minutes
 - [ ] Dialogue supports branching, conditions, commands, and inline text effects
-- [ ] A validator catches broken scripts at startup, and F6 hot reloads them
 - [ ] Flags persist across maps, are inspectable, and follow a naming convention
-- [ ] Cutscenes sequence movement, camera, and dialogue, and are skippable
-- [ ] Triggers fire exactly once and never during cutscenes
-- [ ] Chests, doors, switches, and blocks all persist their state
-- [ ] Quest state is derived from flags and shown in a journal
 - [ ] Field enemies patrol, chase, and can be escaped and stunned
 - [ ] Field to battle to field works on victory, defeat, and flee without leaking
 - [ ] Someone else played my game and got through it
