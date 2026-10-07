@@ -21,7 +21,7 @@ Research notes for this phase:
 [animation-and-tweening.md](../research/animation-and-tweening.md),
 [ui-systems.md](../research/ui-systems.md).
 
-Trimmed: Days 85, 90, 92, 93, 94 removed.
+Trimmed: Days 85, 90, 92, 94 removed.
 
 ---
 
@@ -639,6 +639,36 @@ sections 5-6 (boss design).
 **Deliverable:** a boss fight you are proud of, beatable in 3-5 minutes.
 
 **Journal:** what made the phase transitions feel dramatic rather than arbitrary?
+
+---
+
+### Day 93 - Audio and visual effects
+
+**Goal:** impact. The difference between a prototype and a game.
+
+**Research first (20 min):**
+[particles-and-vfx.md](../research/particles-and-vfx.md) sections 1-4.
+
+**Tasks**
+
+- [ ] Build a small particle system: emitters with count, lifetime, velocity spread, gravity,
+      colour ramp, and size curve. Keep it under 150 lines and pool the particles
+- [ ] Add effects for: hit sparks, critical bursts, healing sparkles, level-up rays, status
+      application puffs, dust on landing
+- [ ] Add screen effects: a white flash on criticals, a red vignette at low HP, a radial blur
+      or zoom punch on big hits
+- [ ] Build the sound layer properly: distinct sounds per grade, per element, per status, per
+      menu action, plus enemy-specific hit sounds. Randomise pitch on everything repetitive
+- [ ] Add battle music with an intro flourish, plus separate boss music, and a low-HP tension
+      layer if you are feeling ambitious
+- [ ] Mix the audio: set relative volumes so nothing drowns out the action command cues. The
+      command cues are gameplay-critical and must sit on top
+- [ ] Compare a recording of today's battle with one from Day 81. The gap is your entire
+      motivation for polish work
+
+**Deliverable:** a battle that sounds and feels like a real game.
+
+**Journal:** watch the Day 81 and Day 93 recordings back to back. Write what changed.
 
 ---
 

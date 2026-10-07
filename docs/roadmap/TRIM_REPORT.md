@@ -10,14 +10,14 @@ branch.
 | --- | --- | --- |
 | Phase 00-03 | 53 | 53 |
 | Interlude (36a-36f) | 6 | 6 |
-| Phase 04 | 18 | 12 (11 kept + Day 69b) |
-| Phase 05 | 24 | 19 |
-| Phase 06 | 22 | 7 |
+| Phase 04 | 18 | 13 (12 kept + Day 69b) |
+| Phase 05 | 24 | 20 |
+| Phase 06 | 22 | 8 |
 | Phase 07 | 33 | 3 (2 kept + Day 120b) |
 | Phase 08 | 20 | 16 |
-| **Total** | **176** | **116** |
+| **Total** | **176** | **119** |
 
-"Total" counts the six interlude days. Without them it is 170 and 110, which matches how the
+"Total" counts the six interlude days. Without them it is 170 and 113, which matches how the
 README counted.
 
 ## Scope notes
@@ -33,8 +33,10 @@ README counted.
 
 ## Structural decisions I made (easy to revert)
 
-- **Day 84 (mash command) was restored in a second pass**, unchanged from the original, so
-  the battle keeps two offensive input types. The Phase 05 "Trimmed" line was updated.
+- **Four days were restored in later passes**, unchanged from the original, and the
+  "Trimmed" lines were updated: Day 84 (mash command), so the battle keeps two offensive
+  input types, plus three engine systems for learning and the portfolio: Day 63 (cutscene
+  system), Day 93 (particles, audio and visual effects) and Day 106 (UI framework).
 - **Phase 07 Blocks B, C and D were removed together with their days.** Their headings and
   intro paragraphs ("Chapter 1 teaches the game...", "Chapter 2 deepens...", "Nine days,
   because a finale needs the extra one.") only introduced cut days. Leaving them would have
@@ -46,7 +48,7 @@ README counted.
   three action-command badges, star power, the badge equip UI, "Balance-test three
   different builds" (the builds are badge loadouts), and "Record every badge". The heading,
   goal, new concepts, deliverable and journal are unchanged.
-- **Exit checklist items that mix kept and cut days were kept** (three of them, listed below).
+- **Exit checklist items that mix kept and cut days were kept** (four of them, listed below).
 - **The "Trimmed:" line** is at the end of each phase intro, after the research notes list
   and before the first `---`.
 - **The vertical slice day is numbered "Day 120b"**, following the "69b" pattern after the
@@ -55,12 +57,12 @@ README counted.
 ## Exit checklist items deleted
 
 - Phase 04: conversation in under five minutes (Day 62), validator and F6 hot reload
-  (Day 62), cutscenes (Day 63), triggers (Day 64), chests/doors/switches/blocks (Day 65),
+  (Day 62), triggers (Day 64), chests/doors/switches/blocks (Day 65),
   quest journal (Day 66).
 - Phase 05: the simulator item (Day 94).
 - Phase 06: stat aggregation (98/109), economy (99), party identity (100), XP curves (101),
-  distinct skills (102), 20 badges (103), UI framework (106), pause menu (107), menus with
-  0/1/200 items (106/108), settings and bindings (111/112), binding prompts (112).
+  distinct skills (102), 20 badges (103), pause menu (107), settings and bindings
+  (111/112), binding prompts (112).
 - Phase 07: everything except `--validate` (Day 119) and iteration time / developer
   console (Day 120).
 
@@ -73,9 +75,6 @@ README counted.
 - **Day 41**, lines 182-183: "Load bindings from a config file so rebinding is already
   possible before you build / the settings menu in Phase 6"
   → Days 111-112 (settings menu, key rebinding), cut.
-- **Day 51**, line 534: "Add `PanTo(target, duration, easing)` using Day 50's tweens, for
-  cutscenes later"
-  → Day 63 (cutscene system), cut.
 
 ### phase-04-overworld.md
 
@@ -85,22 +84,22 @@ README counted.
 - **Day 59**, lines 210-211: "`ch1_met_elder`, `ch1_tower_opened`, `item_key_taken_house3`.
   Chaos here becomes / unfixable by chapter 3"
   → chapters (Days 126-150), cut.
-- **Day 68**, line 300: "a second (this is also your Paper Mario field hammer/jump move)"
+- **Day 68**, line 335: "a second (this is also your Paper Mario field hammer/jump move)"
   → Day 70 (field abilities), cut.
-- **Day 69**, line 325: "Define `struct BattleResult { Outcome outcome; int xpGained; int
+- **Day 69**, line 360: "Define `struct BattleResult { Outcome outcome; int xpGained; int
   goldGained; ...`"
   → `goldGained` points to Day 99 (money), cut.
-- **Day 69**, lines 328-329: "On defeat: fade to a game over screen with Continue (reload
+- **Day 69**, lines 363-364: "On defeat: fade to a game over screen with Continue (reload
   last save - stub until / Phase 6) and Title options"
   → Day 69b now replaces this stub, so the "stub until Phase 6" note is outdated. The Phase 6
   save days (113-114) still exist.
-- **Day 69**, line 335: "Apply XP and level-ups from the result (a stub is fine; Phase 6 owns
+- **Day 69**, line 370: "Apply XP and level-ups from the result (a stub is fine; Phase 6 owns
   progression)"
   → Day 101 (levelling and stat growth), cut. Nothing in Phase 6 owns progression now.
-- **Day 71**, lines 392-394: "Assemble: an opening cutscene, a town with four talking NPCs
+- **Day 71**, lines 427-429: "Assemble: an opening cutscene, a town with four talking NPCs
   and a shopkeeper stub, / a house, a puzzle room, a gated dungeon entrance, three field
   enemies, one main quest / with three steps"
-  → opening cutscene: Day 63; town conversations: Day 62; shopkeeper: Day 99; house and
+  → town conversations: Day 62; shopkeeper: Day 99; house and
   puzzle room: Day 65; gated entrance and main quest: Day 66. All cut.
 
 ### phase-05-battle.md
@@ -142,9 +141,12 @@ README counted.
 - **Day 91**, line 631: "Give it a unique, harder action command for its ultimate attack"
   → with Day 85 cut, the only offensive commands are Day 83's timed press and Day 84's mash.
   This line now implies building a new command type.
-- **Day 95**, line 664: "**Deliverable:** a complete, polished, balanced battle system
+- **Day 93**, line 656: "Add effects for: hit sparks, critical bursts, healing sparkles,
+  level-up rays, status"
+  → level-up: Day 101, cut.
+- **Day 95**, line 694: "**Deliverable:** a complete, polished, balanced battle system
   integrated with the overworld."
-  → polish: Days 92-93; balance: Day 94. All cut.
+  → polish: Day 92; balance: Day 94. Both cut. Day 93 (effects) was restored.
 
 ### phase-06-systems.md
 
@@ -157,50 +159,48 @@ README counted.
 - **Day 97**, line 76: "In the field, open a target selection over the party"
   → no menu opens an item in the field: Day 107 (pause menu) and Day 108 (inventory menu)
   are cut.
-- **Day 97**, line 77: "Give clear feedback in both contexts: the effect number, a sound, a
-  particle, and a"
-  → particle system: Day 93, cut.
-- **Day 113**, line 93: "**Goal:** design the save format before writing it, because format
+- **Day 106**, lines 101-102: "Take stock: you have built the dialogue box, the battle menu,
+  the shop, the badge / screen, and the party screen."
+  → shop: Day 99; badge screen: Days 88/103; party screen: Day 100. All cut. The dialogue
+  box, choice window and battle menu still exist to refactor.
+- **Day 113**, line 127: "**Goal:** design the save format before writing it, because format
   mistakes are permanent."
-  **Day 113**, line 109: "Add a `version` field from the very first save you ever write."
+  **Day 113**, line 143: "Add a `version` field from the very first save you ever write."
   → Day 69b (added) now writes the first save, with a version field.
-- **Day 113**, lines 101-103: "party (levels, XP, HP/FP, skills, equipment, / badges),
+- **Day 113**, lines 135-137: "party (levels, XP, HP/FP, skills, equipment, / badges),
   inventory, gold, flags, quest state, bestiary, current map and position, / playtime,
   settings (separately), and per-map object states"
   → levels/XP: 101; skills: 102; equipment: 98; badges: 88/103; gold: 99; quest state: 66;
   bestiary: 110; settings: 111; object states: 65. All cut.
-- **Day 113**, line 112: "(chapter name, location, playtime, party levels)"
+- **Day 113**, line 146: "(chapter name, location, playtime, party levels)"
   → chapters: 126-150; levels: 101. Cut.
-- **Day 113**, line 114: "Decide save points: anywhere, or only at rest points?"
+- **Day 113**, line 148: "Decide save points: anywhere, or only at rest points?"
   → rest points: Day 104, cut.
-- **Day 114**, lines 133-134: "file select UI reading only the metadata block: slot number,
+- **Day 114**, lines 167-168: "file select UI reading only the metadata block: slot number,
   chapter, / location, party levels"
   → chapters and Day 101, cut.
-- **Day 114**, line 135: "Restore correctly on load: rebuild the map, place the player,
+- **Day 114**, line 169: "Restore correctly on load: rebuild the map, place the player,
   restore object states,"
   → object states: Day 65, cut.
-- **Day 114**, line 138: "Then do it mid-dungeon with a half-finished quest"
+- **Day 114**, line 172: "Then do it mid-dungeon with a half-finished quest"
   → Day 66, cut.
-- **Day 114**, line 139: "Wire up the Day 104 \"game over returns to the last save\" flow"
+- **Day 114**, line 173: "Wire up the Day 104 \"game over returns to the last save\" flow"
   → Day 104, cut. Day 69b already wires Continue to the save.
-- **Day 115**, lines 172-173: "You will need it the first time you change the schema
+- **Day 115**, lines 206-207: "You will need it the first time you change the schema
   mid-development, / which will happen in Phase 7"
   → Phase 07 content days, cut.
-- **Day 116**, lines 193-194: "a menu of New Game, / Continue (greyed out with no saves),
+- **Day 116**, lines 227-228: "a menu of New Game, / Continue (greyed out with no saves),
   Settings, and Quit"
   → Settings: Day 111, cut.
-- **Day 116**, line 196: "Implement New Game: initialise a fresh session, then run the Day 63
-  opening cutscene"
-  → Day 63, cut.
-- **Day 116**, lines 201 and 203: "load config, create the window in the right mode" / "(no
+- **Day 116**, lines 235 and 237: "load config, create the window in the right mode" / "(no
   config, no saves)"
   → settings persistence: Day 111, cut. A bindings config file still exists from Day 41.
-- **Day 117**, lines 218-219: "Full playthrough: boot, new game, cutscene, town, shop,
+- **Day 117**, lines 252-253: "Full playthrough: boot, new game, cutscene, town, shop,
   dialogue, dungeon, battles, / boss, level up, equip, save, quit"
-  → cutscene: 63; shop: 99; level up: 101; equip: 98. All cut.
-- **Day 117**, line 223: "You now have roughly 20 / systems"
+  → shop: 99; level up: 101; equip: 98. All cut.
+- **Day 117**, line 257: "You now have roughly 20 / systems"
   → far fewer systems remain.
-- **Day 117**, line 227: "**Write down every system that is now finished**, because from
+- **Day 117**, line 261: "**Write down every system that is now finished**, because from
   Day 118 you shift from"
   → Day 118, cut.
 
@@ -221,7 +221,7 @@ README counted.
   restart"
   → still valid: the Phase 08 art pass (Days 152-155) was kept.
 - **Day 120**, lines 68-69: "set party level, start any encounter, trigger any cutscene"
-  → party level: Day 101; cutscenes: Day 63. Cut.
+  → party level: Day 101, cut.
 
 ---
 
@@ -230,42 +230,45 @@ README counted.
 - **phase-04**, lines 3-6 (intro): "This phase builds everything that / happens outside
   battle: NPCs you talk to, a dialogue system with branching and commands, / cutscenes,
   world state flags, interactive objects"
-  → cutscenes: 63; interactive objects: 65. Cut.
+  → interactive objects: Day 65, cut.
 - **phase-04**, line 8 (intro): "The dialogue system is the biggest single piece here (Days
   55-62)"
   → Days 61-62 cut.
 - **phase-04**, line 25: "## Block A - NPCs and dialogue (Days 54-62)" → 61-62 cut.
 - **phase-04**, line 255: "## Block B - Cutscenes, world interaction, encounters (Days
-  63-71)" → 63-66 and 70 cut.
-- **phase-04 checklist**, line 410 (kept, mixed): "Dialogue supports branching, conditions,
+  63-71)" → 64-66 and 70 cut.
+- **phase-04 checklist**, line 445 (kept, mixed): "Dialogue supports branching, conditions,
   commands, and inline text effects"
   → inline text effects: Day 61, cut. The rest comes from Days 58-60.
 - **phase-05**, lines 3-5 (intro): "Twenty-four days: ten to / build a solid turn-based
   battle, eight to build the Paper Mario action-command layer that / makes it
   *interactive*, and six to make it feel good."
-  → now 19 days: 10, 7 and 2.
+  → now 20 days: 10, 7 and 3.
 - **phase-05**, line 373: "## Block B - Action commands (Days 82-89)" and line 375: "Eight
   days on the mechanic that defines your game."
   → 85 cut, so seven days remain.
 - **phase-05**, line 612: "## Block C - Battle depth and polish (Days 90-95)"
-  → only 91 and 95 remain.
-- **phase-05 checklist**, line 678 (kept, mixed): "Four offensive command types plus guard
+  → only 91, 93 and 95 remain.
+- **phase-05 checklist**, line 708 (kept, mixed): "Four offensive command types plus guard
   and superguard all feel good"
   → hold/release, rotate and sequence were Day 85, cut. Timed press and mash remain.
-- **phase-05 checklist**, line 681 (kept, Day 88): "FP, badges, and star power make builds
+- **phase-05 checklist**, line 711 (kept, Day 88): "FP, badges, and star power make builds
   meaningfully different"
   → badges and star power were deleted from Day 88.
 - **phase-06**, lines 3-4 (intro): "Twenty-two days on the systems that surround combat:
   items, equipment, shops, party / management, levelling, menus, settings, and saving."
-  → now 7 days; equipment, shops, party, levelling, menus and settings are cut.
+  → now 8 days; equipment, shops, party, levelling, most menus and settings are cut.
 - **phase-06**, line 9 (intro): "**Menus are gameplay.** A player will open the inventory
   hundreds of times."
   → inventory menu: Day 108, cut.
 - **phase-06**, line 25: "## Block A - Items, equipment, party, progression (Days 96-105)"
   → only 96-97 remain.
 - **phase-06**, line 89: "## Block B - Menus, settings, and saving (Days 106-117)"
-  → menus and settings (106-112) cut.
-- **phase-06 checklist**, line 241: "The game boots correctly on a machine with no config and
+  → the menus and settings days 107-112 are cut; 106 remains.
+- **phase-06 checklist**, line 275 (kept, mixed): "Menus handle 0, 1, one page, and 200 items
+  correctly"
+  → Day 106 tests scrolling, but the 200-item test was Day 108 (inventory menu), cut.
+- **phase-06 checklist**, line 277: "The game boots correctly on a machine with no config and
   no saves"
   → settings config: Day 111, cut. A bindings config still exists from Day 41.
 - **phase-07**, line 1: "# Phase 07 - Content pipeline and chapters (Days 118-150)"
@@ -278,7 +281,7 @@ README counted.
 - **phase-07**, lines 80-101: "## The 8-day chapter template" (whole section)
   → was written out by Day 125 and used by the chapter days, all cut. Its table refers to
   "item and badge rewards" (badges), "chests, doors, switches, save points, shops,
-  triggers" (Days 65, 99, 64), "dialogue and cutscenes" (Day 63), "the tier table" (Day
+  triggers" (Days 65, 99, 64), "the tier table" (Day
   124) and "batch balance simulation" (Days 94/124). Its hard rules ("No new engine
   systems") still match Day 120b.
 
@@ -331,9 +334,6 @@ Exit checklist items deleted: "Every accessibility option works throughout the f
 - **Day 157**, lines 138-139: "low-HP heartbeat and vignette, level-up spectacle,
   chest-opening sparkle, footstep dust, / menu open and close animations, and text pop for
   important words" → level-up: 101; chests: 65; text pop: Day 61 (text effects). All cut.
-- **Day 157**, line 144: "a subtle drift in cutscenes" → Day 63, cut.
-- **Day 159**, lines 174-176: "pool / particles and damage numbers" and "every particle
-  effect" → particle system: Day 93, cut.
 - **Day 160**, line 206: "a full inventory, zero gold, max level" → gold: 99; levels: 101.
   Cut.
 - **Day 163**, line 238: "time per chapter" → chapters, cut.
@@ -352,9 +352,8 @@ Exit checklist items deleted: "Every accessibility option works throughout the f
 - Intro, line 3: "Twenty days to turn a complete game into a released one." → now 16 days.
 - Intro, line 7: "At Day 150 you have a playable game" → Day 150, cut. The demo is finished
   on Day 120b.
-- Research notes, lines 17-18: `particles-and-vfx.md` and `shaders.md` → Days 93 and 158,
-  cut.
+- Research notes, line 18: `shaders.md` → Day 158, cut.
 - Line 156: "## Block B - Technical hardening (Days 158-162)" → only 159-160 remain.
 - Line 220: "## Block C - Testing and release (Days 163-170)" → 165 cut.
-- "After Day 170", line 438: "the proof that the 170 days worked" → the plan is now 110
+- "After Day 170", line 438: "the proof that the 170 days worked" → the plan is now 113
   numbered days.

@@ -1,6 +1,6 @@
 # Tales of Legend - Learning Roadmap
 
-A 110-day, day-by-day plan to learn C++ by building a custom JRPG engine, showcased by a small
+A 113-day, day-by-day plan to learn C++ by building a custom JRPG engine, showcased by a small
 demo JRPG with Paper Mario-style interactive battles, using
 [raylib 6.0](https://github.com/raysan5/raylib) as the window/rendering/audio/input layer and
 writing every engine system yourself.
@@ -57,7 +57,7 @@ These exist because the goal is not "a finished game as fast as possible". The g
 
 ## How each day is written
 
-Every one of the 110 days follows the same shape, so you never open the file and wonder
+Every one of the 113 days follows the same shape, so you never open the file and wonder
 what to do:
 
 ```markdown
@@ -98,9 +98,9 @@ working" into "I understand it".
 | [02](phase-02-raylib.md) | 25-36 | 12 | raylib fundamentals | A sprite moving in a room, colliding with walls |
 | [--](interlude-ship-something.md) | 36a-36f | 6 | **Interlude: ship something tiny** | A finished, released micro-game, and proof you can finish |
 | [03](phase-03-engine.md) | 37-53 | 17 | Engine architecture | State machine, assets, entities, tilemaps, camera |
-| [04](phase-04-overworld.md) | 54-71 | 12 | Overworld and dialogue | NPCs, branching dialogue, flags, field encounters, a minimal save |
-| [05](phase-05-battle.md) | 72-95 | 19 | Battle system and action commands | The Paper Mario combat core and one boss |
-| [06](phase-06-systems.md) | 96-117 | 7 | Items and saving | Items, versioned save/load, a title screen |
+| [04](phase-04-overworld.md) | 54-71 | 13 | Overworld and dialogue | NPCs, branching dialogue, flags, cutscenes, field encounters, a minimal save |
+| [05](phase-05-battle.md) | 72-95 | 20 | Battle system and action commands | The Paper Mario combat core, particles and effects, one boss |
+| [06](phase-06-systems.md) | 96-117 | 8 | Items, UI and saving | Items, a UI framework, versioned save/load, a title screen |
 | [07](phase-07-content.md) | 118-120b | 3 | Content pipeline and vertical slice | Validation, hot reload, the demo JRPG |
 | [08](phase-08-ship.md) | 151-170 | 16 | Polish and ship | Juice, real art, a downloadable demo |
 
@@ -123,12 +123,12 @@ Fill in the date when you finish each block. Nothing motivates like a filling ta
 | Engine core | 37-45 | |
 | Tilemaps and camera | 46-53 | |
 | NPCs and dialogue | 54-60 | |
-| Encounters and minimal save | 67-71 | |
+| Cutscenes, encounters and minimal save | 63-71 | |
 | Battle core | 72-81 | |
 | Action commands | 82-89 | |
-| Boss and consolidation | 91-95 | |
+| Boss, effects and consolidation | 91-95 | |
 | Items | 96-97 | |
-| Save and boot flow | 113-117 | |
+| UI framework, save and boot flow | 106-117 | |
 | Content pipeline | 119-120 | |
 | **Vertical slice: the demo** | 120b | |
 | Polish | 151-160 | |

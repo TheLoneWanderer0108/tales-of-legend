@@ -18,7 +18,7 @@ Research notes for this phase:
 [data-driven-design.md](../research/data-driven-design.md),
 [jrpg-game-design.md](../research/jrpg-game-design.md).
 
-Trimmed: Days 61, 62, 63, 64, 65, 66, 70 removed.
+Trimmed: Days 61, 62, 64, 65, 66, 70 removed.
 
 ---
 
@@ -254,6 +254,41 @@ all authored in the script file.
 
 ## Block B - Cutscenes, world interaction, encounters (Days 63-71)
 
+### Day 63 - The cutscene system
+
+**Goal:** scripted sequences where the game plays itself.
+
+**New concepts:** command queues, coroutine-like sequencing without coroutines, blocking vs
+parallel actions, taking control from the player.
+
+**Research first (25 min):** [state-machines.md](../research/state-machines.md) sections 6-8
+(hierarchical states and sequencing).
+
+**Tasks**
+
+- [ ] Write `class Cutscene` holding a queue of `Action` objects, each with
+      `Start()`, `Update(dt)`, `bool Finished()`. This is Day 50's `Sequence` grown up
+- [ ] Implement actions: `MoveEntityTo(id, tile, speed)`, `Wait(seconds)`,
+      `PlayAnimation(id, name)`, `FaceEntity(id, dir)`, `PanCamera(target, duration)`,
+      `RunDialogue(nodeId)`, `SetFlag`, `FadeScreen(colour, duration)`,
+      `PlaySound`, `SpawnEntity`, `DespawnEntity`
+- [ ] Support parallel groups: two NPCs walking simultaneously, then both waiting for each
+      other before the next action
+- [ ] Push a `CutsceneState` that suppresses player input but still draws and updates the
+      field
+- [ ] Extend the dialogue script format so a cutscene can be authored in the same file - one
+      authoring language for the whole game is a large ergonomic win
+- [ ] Add a skip button (hold Cancel for 1 second) that runs every action's end state
+      immediately. Implement this *now*; a cutscene you cannot skip is a cutscene you will
+      stop testing
+- [ ] Author a real 20-second opening cutscene for the town
+
+**Deliverable:** a skippable opening cutscene with movement, camera work, and dialogue.
+
+**Journal:** what was hardest about sequencing?
+
+---
+
 ### Day 67 - Field enemies
 
 **Goal:** enemies that live on the map, in the Paper Mario tradition of visible foes.
@@ -409,6 +444,7 @@ before adding anything else.
 
 - [ ] Dialogue supports branching, conditions, commands, and inline text effects
 - [ ] Flags persist across maps, are inspectable, and follow a naming convention
+- [ ] Cutscenes sequence movement, camera, and dialogue, and are skippable
 - [ ] Field enemies patrol, chase, and can be escaped and stunned
 - [ ] Field to battle to field works on victory, defeat, and flee without leaking
 - [ ] Someone else played my game and got through it

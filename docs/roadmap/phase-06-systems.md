@@ -18,7 +18,7 @@ Research notes for this phase:
 [rpg-math-and-balance.md](../research/rpg-math-and-balance.md),
 [audio.md](../research/audio.md).
 
-Trimmed: Days 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112 removed.
+Trimmed: Days 98, 99, 100, 101, 102, 103, 104, 105, 107, 108, 109, 110, 111, 112 removed.
 
 ---
 
@@ -87,6 +87,40 @@ sections 5-7.
 ---
 
 ## Block B - Menus, settings, and saving (Days 106-117)
+
+### Day 106 - The UI framework
+
+**Goal:** stop writing every menu from scratch.
+
+**New concepts:** retained vs immediate mode UI, widgets, layout, focus, navigation graphs.
+
+**Research first (35 min):** [ui-systems.md](../research/ui-systems.md) sections 9-12.
+
+**Tasks**
+
+- [ ] Take stock: you have built the dialogue box, the battle menu, the shop, the badge
+      screen, and the party screen. List what they share. That list is your framework's
+      specification - derived from real use, exactly as it should be
+- [ ] Build the smallest framework covering it: `Panel` (a bordered box with a title),
+      `ListView` (scrolling, selection, per-item drawing callback), `Label`, `Bar`,
+      `IconGrid`, and `Tabs`
+- [ ] Implement focus and navigation once, properly: directional movement, wrapping,
+      confirm/cancel, and a focus stack for nested panels
+- [ ] Implement scrolling correctly: keep the selection in view, show scroll indicators, and
+      handle a page up/down. Nearly every homemade menu gets scroll edge cases wrong -
+      test with 1, 2, exactly-one-page, and 100 items
+- [ ] Add consistent animation: panels slide in, cursors ease, selections highlight. Consistency
+      is what makes a UI feel professional
+- [ ] Refactor **two** existing menus onto the framework, not all of them. If it does not
+      simplify them, the framework is wrong and it is cheaper to learn that now
+- [ ] Keep it small: under about 600 lines total. A UI framework is a game inside your game
+      if you let it be
+
+**Deliverable:** a small framework, proven by refactoring two existing menus onto it.
+
+**Journal:** did the refactor make those menus shorter? If not, what would you change?
+
+---
 
 ### Day 113 - Save system design
 
@@ -237,5 +271,7 @@ versions.
 
 - [ ] One effect system serves items, skills, and dialogue commands
 - [ ] All items work in every context they claim to support
+- [ ] A small UI framework proven by refactoring real menus onto it
+- [ ] Menus handle 0, 1, one page, and 200 items correctly
 - [ ] Saves are versioned, atomic, backed up, and survive all five corruption tests
 - [ ] The game boots correctly on a machine with no config and no saves
