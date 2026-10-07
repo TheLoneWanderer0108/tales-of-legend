@@ -21,7 +21,7 @@ Research notes for this phase:
 [animation-and-tweening.md](../research/animation-and-tweening.md),
 [ui-systems.md](../research/ui-systems.md).
 
-Trimmed: Days 84, 85, 90, 92, 93, 94 removed.
+Trimmed: Days 85, 90, 92, 93, 94 removed.
 
 ---
 
@@ -466,6 +466,36 @@ readable prompts.
 prompt that appears too late for a human to react (under about 200ms of warning).
 
 **Journal:** your final window numbers and buffer size.
+
+---
+
+### Day 84 - The mash command
+
+**Goal:** press rapidly, with a fair ceiling.
+
+**New concepts:** press counting, rate limiting, physical fairness, gauge feedback.
+
+**Tasks**
+
+- [ ] Implement `MashCommand`: count Confirm presses within a fixed duration (about 2s) and
+      map the count to a multiplier
+- [ ] Set a realistic ceiling. Humans manage roughly 6-9 presses per second, so a 2s window
+      caps around 14-18. The maximum reward must be reachable without hurting anyone's hand -
+      cap the *benefit*, not the presses
+- [ ] Cheat-proof it: ignore presses faster than about 25ms apart (autofire controllers), and
+      require alternating input for the harder variant
+- [ ] Feedback matters more here than anywhere: a filling gauge, a growing character
+      animation, escalating sound pitch, screen shake building. Mashing with weak feedback
+      feels like a chore; with strong feedback it is thrilling
+- [ ] Add threshold markers on the gauge so the player can see the next reward tier
+- [ ] Implement the alternating variant (Confirm and Cancel alternately) and note how
+      different it feels
+- [ ] Consider your players' hands: no more than one mash command per turn cycle, and never
+      three in a row. Write the rule in the design doc
+
+**Deliverable:** a mash command with a fair ceiling, cheat protection, and great feedback.
+
+**Journal:** what was your measured maximum press rate, and where did you set the cap?
 
 ---
 

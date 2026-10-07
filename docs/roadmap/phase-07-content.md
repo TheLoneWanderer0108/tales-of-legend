@@ -120,8 +120,8 @@ exist.
 - [ ] Author a couple of field enemies with Day 67 behaviours, each leading to a Day 68
       `EncounterDef`
 - [ ] Author about 10 moves across skills and items, all in data, each using a command that
-      already exists: the Day 83 timed press on offence, Day 86 guard and superguard on
-      defence, with Day 88 FP costs
+      already exists: the Day 83 timed press and Day 84 mash on offence, Day 86 guard and
+      superguard on defence, with Day 88 FP costs
 - [ ] Put the boss at the end of the second area, reusing your Day 91 boss work
 - [ ] Run `--validate` and fix everything it reports, then tune with hot reload and the
       developer console

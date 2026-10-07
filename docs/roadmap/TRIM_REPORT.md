@@ -11,13 +11,13 @@ branch.
 | Phase 00-03 | 53 | 53 |
 | Interlude (36a-36f) | 6 | 6 |
 | Phase 04 | 18 | 12 (11 kept + Day 69b) |
-| Phase 05 | 24 | 18 |
+| Phase 05 | 24 | 19 |
 | Phase 06 | 22 | 7 |
 | Phase 07 | 33 | 3 (2 kept + Day 120b) |
 | Phase 08 | 20 | 16 |
-| **Total** | **176** | **115** |
+| **Total** | **176** | **116** |
 
-"Total" counts the six interlude days. Without them it is 170 and 109, which matches how the
+"Total" counts the six interlude days. Without them it is 170 and 110, which matches how the
 README counted.
 
 ## Scope notes
@@ -33,6 +33,8 @@ README counted.
 
 ## Structural decisions I made (easy to revert)
 
+- **Day 84 (mash command) was restored in a second pass**, unchanged from the original, so
+  the battle keeps two offensive input types. The Phase 05 "Trimmed" line was updated.
 - **Phase 07 Blocks B, C and D were removed together with their days.** Their headings and
   intro paragraphs ("Chapter 1 teaches the game...", "Chapter 2 deepens...", "Nine days,
   because a finale needs the extra one.") only introduced cut days. Leaving them would have
@@ -117,32 +119,30 @@ README counted.
 - **Day 81**, line 356: "Apply XP to persistent `CharacterData`, handle multiple level-ups in
   one go, and show"
   → Day 101, cut.
-- **Day 82**, line 404: "`int   hits = 1;            // for mash/multi commands`"
-  → Day 84 (mash command), cut.
 - **Day 82**, line 429: "Write down the accessibility plan now: an option to widen all
   windows, an option to"
-  **Day 87**, line 529: "Implement the accessibility options you promised on Day 82 (wider
+  **Day 87**, line 559: "Implement the accessibility options you promised on Day 82 (wider
   windows,"
   → the player-facing toggles for these were in Day 111 (settings menu), cut. Day 87 still
   builds the options, but nothing exposes them to the player.
-- **Day 88**, line 540: "### Day 88 - The economy: FP, badges, and star power"
+- **Day 88**, line 570: "### Day 88 - The economy: FP, badges, and star power"
   → badges and star power bullets deleted from this day.
-- **Day 88**, line 544: "**New concepts:** resource economies, build customisation, cost
+- **Day 88**, line 574: "**New concepts:** resource economies, build customisation, cost
   curves, meaningful choice."
   → build customisation was the badge system, deleted.
-- **Day 88**, lines 548-549: "Implement FP (skill points): skills cost FP, FP restores
+- **Day 88**, lines 578-579: "Implement FP (skill points): skills cost FP, FP restores
   partially after battle and / fully at rest points."
   → rest points: Day 104, cut.
-- **Day 88**, line 552: "**Deliverable:** an economy where the player's build and their
+- **Day 88**, line 582: "**Deliverable:** an economy where the player's build and their
   execution both matter."
   → builds: badge bullets, deleted.
-- **Day 88**, line 554: "**Journal:** which badge combination broke the game, and how did
+- **Day 88**, line 584: "**Journal:** which badge combination broke the game, and how did
   you fix it?"
   → badges, deleted.
-- **Day 91**, line 601: "Give it a unique, harder action command for its ultimate attack"
-  → with Days 84-85 cut, the only offensive command is Day 83's timed press. This line now
-  implies building a new command type.
-- **Day 95**, line 634: "**Deliverable:** a complete, polished, balanced battle system
+- **Day 91**, line 631: "Give it a unique, harder action command for its ultimate attack"
+  → with Day 85 cut, the only offensive commands are Day 83's timed press and Day 84's mash.
+  This line now implies building a new command type.
+- **Day 95**, line 664: "**Deliverable:** a complete, polished, balanced battle system
   integrated with the overworld."
   → polish: Days 92-93; balance: Day 94. All cut.
 
@@ -243,17 +243,16 @@ README counted.
 - **phase-05**, lines 3-5 (intro): "Twenty-four days: ten to / build a solid turn-based
   battle, eight to build the Paper Mario action-command layer that / makes it
   *interactive*, and six to make it feel good."
-  → now 18 days: 10, 6 and 2.
+  → now 19 days: 10, 7 and 2.
 - **phase-05**, line 373: "## Block B - Action commands (Days 82-89)" and line 375: "Eight
   days on the mechanic that defines your game."
-  → 84-85 cut, so six days remain.
-- **phase-05**, line 582: "## Block C - Battle depth and polish (Days 90-95)"
+  → 85 cut, so seven days remain.
+- **phase-05**, line 612: "## Block C - Battle depth and polish (Days 90-95)"
   → only 91 and 95 remain.
-- **phase-05 checklist**, line 648 (kept, mixed): "Four offensive command types plus guard
+- **phase-05 checklist**, line 678 (kept, mixed): "Four offensive command types plus guard
   and superguard all feel good"
-  → mash, hold/release, rotate and sequence were Days 84-85, cut. Only the timed press
-  remains.
-- **phase-05 checklist**, line 651 (kept, Day 88): "FP, badges, and star power make builds
+  → hold/release, rotate and sequence were Day 85, cut. Timed press and mash remain.
+- **phase-05 checklist**, line 681 (kept, Day 88): "FP, badges, and star power make builds
   meaningfully different"
   → badges and star power were deleted from Day 88.
 - **phase-06**, lines 3-4 (intro): "Twenty-two days on the systems that surround combat:
@@ -296,7 +295,7 @@ README counted.
 - **Day 69b's debug keys** (F10, Shift+F10) don't clash with any key used elsewhere (F1,
   F5-F9).
 - **Day 120b** covers in one day what the original plan spread over an 8-day template per
-  chapter. It only references kept days: 52, 56, 59, 60, 67, 68, 83, 86, 88, 91, 116 (title
+  chapter. It only references kept days: 52, 56, 59, 60, 67, 68, 83, 84, 86, 88, 91, 116 (title
   screen), 119 (`--validate`) and 120 (hot reload, developer console).
 
 ---
@@ -357,5 +356,5 @@ Exit checklist items deleted: "Every accessibility option works throughout the f
   cut.
 - Line 156: "## Block B - Technical hardening (Days 158-162)" → only 159-160 remain.
 - Line 220: "## Block C - Testing and release (Days 163-170)" → 165 cut.
-- "After Day 170", line 438: "the proof that the 170 days worked" → the plan is now 109
+- "After Day 170", line 438: "the proof that the 170 days worked" → the plan is now 110
   numbered days.
