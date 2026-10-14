@@ -1,4 +1,6 @@
 build/
+build-*/
 *.o
 compile_commands.json
 .cache/
+sandbox/console-battle/main

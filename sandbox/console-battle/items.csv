@@ -1,2 +1,4 @@
 potion,heal,20
 elixir,restorefp,10
+bomb,bomb,12
+antidote,curePoison,0

@@ -139,10 +139,22 @@ Game
    Cycles need `weak_ptr` on the back-reference — see `sandbox/day18/cycle.cpp`.
 4. **Never store raw pointers to `vector` elements across `push_back`.** Use indices/IDs or re-lookup each frame.
 
-### Sandbox today (Day 17)
+### Sandbox today (Day 24 — console battle)
 
-`main` owns `vector<Actor> party` locally. No `GameSession` yet — when battle code grows,
-lift party into a session object instead of letting `BattleState` copy or own the vector.
+Playable text battle lives in `sandbox/console-battle/`.
+
+| Piece | Files | Owns / does |
+| --- | --- | --- |
+| Types + `Phase` | `types.h` | Enums, `Actor`, `SkillDef`, `Item`, `class Battle` with `phase` / `rng` / `actors` |
+| Loaders | `actor.*`, `skill.*`, `item.*`, `util.*` | CSV → defs; `Split` shared |
+| Math | `battle_math.cpp` | Damage, turn order, `CheckEnd`, status ticks |
+| Turns | `battle_ally.cpp`, `battle_foe.cpp`, `battle_helpers.cpp` | Player menu / auto attack; weighted foe AI |
+| Loop | `battle_loop.cpp` | `RunBattle` drives `Phase` through a round |
+| Text | `text.*` | Enum → string |
+| Entry | `main.cpp` | `Tests()`, interactive fight, `--auto` / `--seed` |
+
+**Ownership note (still true):** this sandbox `Battle` owns its `actors` vector for the fight.
+Later `BattleState` must **borrow** party actors from `GameSession` instead of owning them.
 
 ---
 
@@ -160,20 +172,18 @@ shaders) is covered.
 **Cost accepted:** no built-in UI, no built-in scene graph, no built-in ECS. Building
 those is the point.
 
-### D002 - _(your first real decision, around Day 40)_
-**Date:**
-**Decision:**
-**Why:**
-**Cost accepted:**
-
----
-
 ### D002 - where you will allow inheritance (interfaces with behaviour: `Skill`, `GameState`, `AiBehaviour`) and where you will not (enemy types, item types)
 **Date**:8/28/2026
 **Decision**: Enemies and items are composed structs + data, not class hierarchies. Inheritance is reserved for behavior interfaces like GameState, ActionCommand,
     and maybe AiBehaviour.
 **Why**: Content variety is mostly stats/flags/skills, not new algorithms. Deep trees break when traits combine. Data scales without recompiling.
 **Cost accepted**: Slightly more boilerplate now; skills may move from classes to structs later (task 5).
+
+### D003 - console battle: one `mt19937` on `Battle`, noun-split sources
+**Date:** 10/14/2026
+**Decision:** RNG lives on `Battle`; pass `mt19937&` into damage rolls. Split by noun (`actor`/`skill`/`item`/`battle_*`) not one god `main.cpp`.
+**Why:** `--seed` must replay a whole fight; file size limits force seams you will reuse in Phase 5.
+**Cost accepted:** More headers/CMake entries; `Battle` still owns actors in the sandbox (must change when `GameSession` exists).
 
 ---
 
@@ -186,6 +196,7 @@ Fill a row in each day you finish a system.
 | Smart pointers sandbox | `sandbox/day18/smart.cpp` | `vector<unique_ptr<Skill>>` | Day 14 skill hierarchy | 18 |
 | Shared_ptr cycle demo | `sandbox/day18/cycle.cpp` | `NodeA` → B via `shared_ptr`; B observes A via `weak_ptr` | — | 18 |
 | Turn order | `sandbox/day17/*` | `main` owns `vector<Actor> party` | `Actor`, `Stats` | 17 |
+| Console battle | `sandbox/console-battle/*` | `Battle` owns actors + rng + inventory counts for the fight | CSV loaders, `Phase` loop | 21–24 |
 
 ---
 

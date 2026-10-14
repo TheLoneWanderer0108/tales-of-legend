@@ -133,3 +133,16 @@ Learned: CSV is defs only — CurrentHp/Fp, statuses, defending are set in code;
 ## Day 22 - 9/13/2026
 Broke: Turn order felt impossible until I mixed up the sticky-note list with the board — shadowed `order`, treated seats like actors, put `cin` inside the print loop, and for Defend I checked the attacker and cleared the flag on hit instead of the target lasting until their next turn.
 Learned: `TurnOrder` returns seats; person is `battle.actors[seat]`. Target pick is two phases (build living-foe list, then validate). Damage is atk²/(atk+def) then ±10% then 5% crit; Defend halves on the *target* and expires at *their* turn start. Outer `while (CheckEnd == ongoing)` with a fresh `TurnOrder` each round is the fight spine — empty target lists must be guarded or the menu spins forever.
+
+## Day 23 - 10/4/2026
+Broke: Guarded the rolled skill *index* as if it meant "no skills"; treated antidote target as `person.statuses` instead of living allies; bomb at 30 wiped 15–20 HP foes and looked like antidote ended the fight.
+Learned: Empty list ≠ id 0. Antidote picks an ally seat then erases poison. One shared `battle.rng` + `--seed` makes crits/AI replayable — `argv[i] == "--seed"` compares pointers, use `std::string(argv[i])`.
+
+## Day 24 - 10/14/2026
+Broke: Extracted `RunFoeTurn` by value so damage vanished; left duplicate functions in `main` after moving to `.cpp`; forgot `.cpp` entries in CMake; GCC ASan link failed without `libasan` (clang worked).
+Learned: Refs for mutable battle state. Headers via `#include`, only `.cpp` in CMake. `Phase` on `Battle` + `RunBattle` is the first state machine. `--auto` 500 fights landed ~71% hero wins after tuning enemy CSV. Took longest: index-vs-object and pass-by-value bugs. Would design splits earlier. Still distrust: unsigned/`size_t` compares and when `operator[]` inserts into maps.
+
+### Day 24 retrospective (fill in your own words if you want)
+- What took longest: The parsing and combat logic, especially the turn order and target selection. It was tricky to get all the pieces to work together correctly.
+- What you would design differently: Nothing as of now, but I would like to have a better understanding of how to structure the code and separate concerns more effectively.
+- Which C++ feature you still do not trust: Unsigned integers and `size_t` comparisons, as they can lead to unexpected behavior if not handled carefully. Also, the behavior of `operator[]` in maps can be surprising since it inserts default values for missing keys.

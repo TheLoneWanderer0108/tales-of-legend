@@ -26,9 +26,27 @@ add_executable(day17
 )
 add_executable(console-battle
         sandbox/console-battle/main.cpp
+        sandbox/console-battle/util.cpp
+        sandbox/console-battle/item.cpp
+        sandbox/console-battle/actor.cpp
+        sandbox/console-battle/skill.cpp
+        sandbox/console-battle/battle_math.cpp
+        sandbox/console-battle/battle_helpers.cpp
+        sandbox/console-battle/battle_ally.cpp
+        sandbox/console-battle/battle_foe.cpp
+        sandbox/console-battle/battle_loop.cpp
+        sandbox/console-battle/text.cpp
 )
 target_compile_options(day17 PRIVATE -Wall -Wextra)
 target_compile_options(console-battle PRIVATE -Wall -Wextra)
+if(SANITIZE)
+    target_compile_options(console-battle PRIVATE
+        -fsanitize=address,undefined
+        -fno-omit-frame-pointer
+    )
+    target_link_options(console-battle PRIVATE
+        -fsanitize=address,undefined)
+endif()
 target_link_libraries(game PRIVATE raylib)
 target_compile_options(game PRIVATE -Wall -Wextra)
 

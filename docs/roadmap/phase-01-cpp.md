@@ -698,19 +698,19 @@ will greet you again in Phase 5 - solving it now is worth an hour.
 
 **Tasks**
 
-- [ ] Refactor: no function longer than 40 lines, no file longer than 300, names that read
+- [x] Refactor: no function longer than 40 lines, no file longer than 300, names that read
       as sentences (`ApplyEndOfTurnStatuses`, not `doStuff2`)
-- [ ] Extract the battle into a `Battle` class with an explicit
+- [x] Extract the battle into a `Battle` class with an explicit
       `enum class Phase` member. You have just written your first state machine - notice
       that, because Phase 3 formalises it
-- [ ] Write a headless auto-battle mode (both sides AI) that runs 500 battles and reports
+- [x] Write a headless auto-battle mode (both sides AI) that runs 500 battles and reports
       the hero win rate. Tune stats until it sits between 60% and 80%
-- [ ] Add 5 unit-test-style checks in a `Tests()` function using `assert`: damage never
+- [x] Add 5 unit-test-style checks in a `Tests()` function using `assert`: damage never
       negative, HP never exceeds max, poison expires after exactly 3 ticks, a dead actor
       never acts, inventory count never goes below zero
-- [ ] Run under `-fsanitize=address,undefined` one final time. Fix everything it says
-- [ ] Update [../design/architecture.md](../design/architecture.md) with what you built
-- [ ] Write a real retrospective in the journal: what took longest, what you would design
+- [x] Run under `-fsanitize=address,undefined` one final time. Fix everything it says
+- [x] Update [../design/architecture.md](../design/architecture.md) with what you built
+- [x] Write a real retrospective in the journal: what took longest, what you would design
       differently, which C++ feature you still do not trust
 
 **Deliverable:** a clean, tested, balanced console RPG battle, committed.
