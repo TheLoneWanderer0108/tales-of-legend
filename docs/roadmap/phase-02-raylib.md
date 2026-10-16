@@ -37,16 +37,16 @@ sections 1-2.
 
 **Tasks**
 
-- [ ] Get a 1280x720 window titled "Tales of Legend" opening and closing cleanly
-- [ ] Draw text, a rectangle, and a circle. Confirm that y increases *downwards*
-- [ ] Remove `ClearBackground` and move a shape - see the smearing. That tells you what
+- [x] Get a 1280x720 window titled "Tales of Legend" opening and closing cleanly
+- [x] Draw text, a rectangle, and a circle. Confirm that y increases *downwards*
+- [x] Remove `ClearBackground` and move a shape - see the smearing. That tells you what
       clearing does
-- [ ] Draw something *after* `EndDrawing` and observe that nothing appears
-- [ ] Print `GetFrameTime()` and `GetFPS()` on screen with `DrawText` +
+- [x] Draw something *after* `EndDrawing` and observe that nothing appears
+- [x] Print `GetFrameTime()` and `GetFPS()` on screen with `DrawText` +
       `TextFormat`
-- [ ] Wrap the window in an RAII class (`struct Window { Window(); ~Window(); }`) exactly
+- [x] Wrap the window in an RAII class (`struct Window { Window(); ~Window(); }`) exactly
       like your Day 13 `ScopedLog`, so `CloseWindow` can never be forgotten
-- [ ] Comment your `main` with the four-line structure: init, loop, update, draw
+- [x] Comment your `main` with the four-line structure: init, loop, update, draw
 
 **Deliverable:** a window you opened, with an RAII wrapper you wrote.
 
