@@ -1,16 +1,9 @@
 #include <iostream>
 #include "raylib.h"
+#include <cmath>
 
-//Get a 1280x720 window titled "Tales of Legend" opening and closing cleanly
-//Draw text, a rectangle, and a circle. Confirm that y increases *downwards*
-//Remove `ClearBackground` and move a shape - see the smearing. That tells you what
-//clearing does
-// Draw something *after* `EndDrawing` and observe that nothing appears
-// Print `GetFrameTime()` and `GetFPS()` on screen with `DrawText` +
-//`TextFormat`
-// Wrap the window in an RAII class (`struct Window { Window(); ~Window(); }`) exactly
-//like your Day 13 `ScopedLog`, so `CloseWindow` can never be forgotten
-// Comment your `main` with the four-line structure: init, loop, update, draw
+// Move a rectangle with arrow keys using `position += speed * dt` where speed is in
+//pixels per second (try 200)
 
 struct Window {
     Window() {
@@ -22,23 +15,69 @@ struct Window {
     }
 };
 
+float clamp(float value, float min, float max){
+    if(value < min){
+        return value = min;
+    }
+    else if(value > max){
+        return value = max;
+    }
+
+    return value;
+}
+
 int main(void){
 
     Window window; // RAII window, InitWindow and CloseWindow are called automatically
+    float speed = 200.0f; // pixels per second
+    float rectX = 400.0f;
+    float rectY = 200.0f;
+    float velX = 0;
+    float vely = 0;
+    float accel = 800;
+    float friction = 0.1f;
+    float rectWidth = 100.0f;  // Make it wide
+    float rectHeight = 50.0f;
 
-    int x_circle_pos = 250;
-    int y_circle_pos = 300;
     //loop
     while (!WindowShouldClose()){
         // update
+        float dt = GetFrameTime();
+        float dirX = 0;
+        float dirY = 0;
+        if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
+            dirX += 1;
+        }
+        if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
+            dirX -= 1;
+        }
+
+        if(IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)){
+            dirY -= 1;
+        }
+        if(IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)){
+            dirY += 1;
+        }
+        float lenght = std::sqrt(pow(dirX, 2) + pow(dirY, 2));
+        if(lenght > 0){
+            dirX/=lenght;
+            dirY/=lenght;
+        }
+        velX += dirX * accel * dt;
+        vely += dirY * accel * dt;
+        velX *= pow(friction, dt);
+        vely *= pow(friction, dt);
+        rectX += velX * dt;
+        rectY += vely * dt;
+        rectX = clamp(rectX, 0, GetScreenWidth() - rectWidth);
+        rectY = clamp(rectY, 0, GetScreenHeight() - rectHeight);
+
         BeginDrawing(); // draw
         ClearBackground(RAYWHITE);
-        DrawText("Tales of Legend", 190, 200, 20, LIGHTGRAY);
-        DrawRectangle(100, 100, 200, 200, RED);
-        DrawCircle(x_circle_pos, y_circle_pos, 110, BLUE);
-        DrawText("Y increases downwards", 50, 400, 20, BLACK);
-        DrawText(TextFormat("Frame Time: %.02f ms", GetFrameTime() * 1000), 50, 450, 20, BLACK);
-        DrawText(TextFormat("FPS: %d", GetFPS()), 50, 500, 20, BLACK);
+        DrawText(TextFormat("lenght: %.2f", lenght), 250, 200, 20, BLACK);
+        DrawRectangle(rectX, rectY, rectWidth, rectHeight, BLUE);
+        DrawText(TextFormat("ms: %.2f", dt * 1000), 300, 250, 20, GREEN);
+
         EndDrawing(); // draw
     }
 

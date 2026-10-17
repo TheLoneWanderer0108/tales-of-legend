@@ -69,17 +69,17 @@ sections 3-4.
 
 **Tasks**
 
-- [ ] Move a rectangle with arrow keys using `position += speed * dt` where speed is in
+- [x] Move a rectangle with arrow keys using `position += speed * dt` where speed is in
       pixels per second (try 200)
-- [ ] Now move it with `position += 3` per frame instead. Change `SetTargetFPS` between
+- [x] Now move it with `position += 3` per frame instead. Change `SetTargetFPS` between
       30, 60 and 144 and watch the speed change. Understand why this is unacceptable
-- [ ] Move diagonally and measure that it is faster (about 1.41x). Fix it by normalising
+- [x] Move diagonally and measure that it is faster (about 1.41x). Fix it by normalising
       the direction vector before scaling by speed
-- [ ] Add acceleration and friction: `velocity += accel * dt`, `velocity *= 0.9f` per
+- [x] Add acceleration and friction: `velocity += accel * dt`, `velocity *= 0.9f` per
       frame, then notice that a per-frame multiplier is *also* frame-rate dependent.
       Look up how to make damping time-based
-- [ ] Clamp the rectangle inside the window
-- [ ] Display `dt` in milliseconds and watch it spike when you drag the window
+- [x] Clamp the rectangle inside the window
+- [x] Display `dt` in milliseconds and watch it spike when you drag the window
 
 **Deliverable:** a rectangle whose movement speed is identical at any frame rate, including
 diagonals.
