@@ -101,15 +101,15 @@ gamepad functions, `GetGamepadAxisMovement`, deadzones, mouse position.
 
 **Tasks**
 
-- [ ] Print live status for four keys using `IsKeyDown` and `IsKeyPressed` side by side.
+- [x] Print live status for four keys using `IsKeyDown` and `IsKeyPressed` side by side.
       Hold a key and watch exactly one of them stay true
-- [ ] Build a tiny menu of 4 options navigated with up/down (`IsKeyPressed`) and confirmed
+- [x] Build a tiny menu of 4 options navigated with up/down (`IsKeyPressed`) and confirmed
       with Enter. Use `IsKeyDown` by mistake first, so you feel why it is wrong
-- [ ] Add key repeat: after holding for 0.4s, repeat every 0.1s. Every real menu needs this
-- [ ] If you have a controller, read the left stick with `GetGamepadAxisMovement`, apply a
+- [x] Add key repeat: after holding for 0.4s, repeat every 0.1s. Every real menu needs this
+- [x] If you have a controller, read the left stick with `GetGamepadAxisMovement`, apply a
       0.2 deadzone, and move the rectangle with it. Print raw vs deadzoned values
-- [ ] Draw a circle at the mouse position and print when each mouse button is pressed
-- [ ] Write down the input needs of a Paper Mario action command: exact press frame,
+- [x] Draw a circle at the mouse position and print when each mouse button is pressed
+- [x] Write down the input needs of a Paper Mario action command: exact press frame,
       hold duration, release frame, presses per second. Which raylib function serves each?
 
 **Deliverable:** a menu with proper navigation and key repeat, driven by keyboard and

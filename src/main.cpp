@@ -1,9 +1,8 @@
+#include <cstddef>
 #include <iostream>
+#include <string>
+#include <vector>
 #include "raylib.h"
-#include <cmath>
-
-// Move a rectangle with arrow keys using `position += speed * dt` where speed is in
-//pixels per second (try 200)
 
 struct Window {
     Window() {
@@ -15,72 +14,85 @@ struct Window {
     }
 };
 
-float clamp(float value, float min, float max){
-    if(value < min){
-        return value = min;
-    }
-    else if(value > max){
-        return value = max;
-    }
-
-    return value;
-}
-
 int main(void){
+        Window window;
 
-    Window window; // RAII window, InitWindow and CloseWindow are called automatically
-    float speed = 200.0f; // pixels per second
-    float rectX = 400.0f;
-    float rectY = 200.0f;
-    float velX = 0;
-    float vely = 0;
-    float accel = 800;
-    float friction = 0.1f;
-    float rectWidth = 100.0f;  // Make it wide
-    float rectHeight = 50.0f;
+        size_t selected {0};
+        std::vector<std::string> options = {"Attack", "Skills", "Items", "Run"};
+        float timer = 0.0;
+        float upKeyTimer = 0.0;
 
-    //loop
+
     while (!WindowShouldClose()){
         // update
         float dt = GetFrameTime();
-        float dirX = 0;
-        float dirY = 0;
-        if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)){
-            dirX += 1;
+        int mouseX = GetMouseX();
+        int mouseY = GetMouseY();
+        bool moveDown = false;
+        bool moveUp = false;
+        if(IsKeyPressed(KEY_DOWN)){
+          moveDown = true;
         }
-        if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)){
-            dirX -= 1;
+        else if(IsKeyPressed(KEY_UP)){
+            moveUp = true;
         }
 
-        if(IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)){
-            dirY -= 1;
+        if(IsKeyPressed(KEY_ENTER)){
+            std::cout << options[selected] << "\n";
         }
-        if(IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)){
-            dirY += 1;
+        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+            std::cout << "Left click" << "\n";
         }
-        float lenght = std::sqrt(pow(dirX, 2) + pow(dirY, 2));
-        if(lenght > 0){
-            dirX/=lenght;
-            dirY/=lenght;
+        if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)){
+            std::cout << "Right click" << "\n";
         }
-        velX += dirX * accel * dt;
-        vely += dirY * accel * dt;
-        velX *= pow(friction, dt);
-        vely *= pow(friction, dt);
-        rectX += velX * dt;
-        rectY += vely * dt;
-        rectX = clamp(rectX, 0, GetScreenWidth() - rectWidth);
-        rectY = clamp(rectY, 0, GetScreenHeight() - rectHeight);
-
+        if(IsKeyDown(KEY_DOWN)){
+            timer += dt;
+            if(timer > 0.4){
+                moveDown = true;
+                timer = 0.3;
+            }
+        }else{
+            timer = 0.0;
+        }
+        if(IsKeyDown(KEY_UP)){
+            upKeyTimer += dt;
+            if(upKeyTimer > 0.4){
+                moveUp = true;
+                upKeyTimer = 0.3;
+            }
+        }else{
+            upKeyTimer = 0.0;
+        }
+        if(moveUp){
+            if(selected <= 0){
+                selected = options.size() - 1;
+            }else{
+                selected -= 1;
+            }
+        }
+        if(moveDown){
+            if(options.size() - 1 <= selected){
+                selected = 0;
+            }else{
+                selected += 1;
+            }
+        }
         BeginDrawing(); // draw
         ClearBackground(RAYWHITE);
-        DrawText(TextFormat("lenght: %.2f", lenght), 250, 200, 20, BLACK);
-        DrawRectangle(rectX, rectY, rectWidth, rectHeight, BLUE);
-        DrawText(TextFormat("ms: %.2f", dt * 1000), 300, 250, 20, GREEN);
-
+        for(size_t i{0}; i<options.size(); i++){
+            if( i == selected){
+                DrawText(TextFormat("%s", options[i].c_str()), 50, 50 * i, 20, BLUE);
+            }else{
+                DrawText(TextFormat("%s", options[i].c_str()), 50, 50 * i, 20, BLACK);
+            }
+        }
+        DrawCircle(mouseX, mouseY, 15, GOLD);
+        DrawText(TextFormat("time: %.2f", timer), 300, 300, 20, GREEN);
+        DrawText(TextFormat("mouseposX: %d", mouseX), 400, 400, 20, PURPLE);
+        DrawText(TextFormat("mouseposY: %d", mouseY), 450, 450, 20, PINK);
         EndDrawing(); // draw
     }
-
 
 
     return 0;
