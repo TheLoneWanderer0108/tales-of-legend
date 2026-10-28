@@ -129,16 +129,16 @@ a blocker.
 
 **Tasks**
 
-- [ ] Build a mock battle screen with rectangles only: 3 heroes on the left, 2 enemies on
+- [x] Build a mock battle screen with rectangles only: 3 heroes on the left, 2 enemies on
       the right, a ground line, an HP bar per actor, a command window at the bottom
-- [ ] Make HP bars work: a dark background bar plus a coloured fill bar scaled by
+- [x] Make HP bars work: a dark background bar plus a coloured fill bar scaled by
       `hp / maxHp`, with the colour going green to yellow to red
-- [ ] Define a small palette as named constants in one place. Using named colours from a
+- [x] Define a small palette as named constants in one place. Using named colours from a
       palette instead of ad-hoc values is what stops placeholder art looking like noise
-- [ ] Draw a translucent overlay with `Fade(BLACK, 0.5f)` and note how draw order decides
+- [x] Draw a translucent overlay with `Fade(BLACK, 0.5f)` and note how draw order decides
       what covers what
-- [ ] Add a selection cursor (a triangle) that moves between targets with left/right keys
-- [ ] Draw the same scene at half scale by multiplying every coordinate by 0.5, and feel
+- [x] Add a selection cursor (a triangle) that moves between targets with left/right keys
+- [x] Draw the same scene at half scale by multiplying every coordinate by 0.5, and feel
       how badly hardcoded coordinates scale. This is why Day 42 exists
 
 **Deliverable:** a battle mock-up you would be happy to develop against for months.
